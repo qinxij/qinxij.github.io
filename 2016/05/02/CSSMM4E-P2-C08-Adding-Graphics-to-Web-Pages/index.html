@@ -1,0 +1,746 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CSS,Web,CSSMM4E," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="免费图片
+http://foter.com
+https://unsplash.com
+http://www.morguefile.com
+http://www.freeimages.com
+http://openphoto.net
+http://search.creativecommons.org
+http://www.flickr.com/creativecommons
+ICON: http:/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSSMM4E 笔记 - 2.08 - 为网页添加生动的图片">
+<meta property="og:url" content="http://qinxij.me/2016/05/02/CSSMM4E-P2-C08-Adding-Graphics-to-Web-Pages/index.html">
+<meta property="og:site_name" content="秦小">
+<meta property="og:description" content="免费图片
+http://foter.com
+https://unsplash.com
+http://www.morguefile.com
+http://www.freeimages.com
+http://openphoto.net
+http://search.creativecommons.org
+http://www.flickr.com/creativecommons
+ICON: http:/">
+<meta property="og:image" content="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/12191443.jpg">
+<meta property="og:image" content="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/94432684.jpg">
+<meta property="og:image" content="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/37927189.jpg">
+<meta property="og:image" content="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/44445076.jpg">
+<meta property="og:image" content="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/30100339.jpg">
+<meta property="og:image" content="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/69671553.jpg">
+<meta property="og:updated_time" content="2016-12-31T18:38:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSSMM4E 笔记 - 2.08 - 为网页添加生动的图片">
+<meta name="twitter:description" content="免费图片
+http://foter.com
+https://unsplash.com
+http://www.morguefile.com
+http://www.freeimages.com
+http://openphoto.net
+http://search.creativecommons.org
+http://www.flickr.com/creativecommons
+ICON: http:/">
+<meta name="twitter:image" content="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/12191443.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://qinxij.me/2016/05/02/CSSMM4E-P2-C08-Adding-Graphics-to-Web-Pages/"/>
+
+
+
+
+
+  <title> CSSMM4E 笔记 - 2.08 - 为网页添加生动的图片 | 秦小 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">秦小</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">秦小军的网络日志</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://qinxij.me/2016/05/02/CSSMM4E-P2-C08-Adding-Graphics-to-Web-Pages/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="qinxij">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="秦小">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="秦小" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CSSMM4E 笔记 - 2.08 - 为网页添加生动的图片
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-02T18:11:24+08:00">
+                2016-05-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="免费图片"><a href="#免费图片" class="headerlink" title="免费图片"></a>免费图片</h2><ul>
+<li><a href="http://foter.com" target="_blank" rel="external">http://foter.com</a></li>
+<li><a href="https://unsplash.com" target="_blank" rel="external">https://unsplash.com</a></li>
+<li><a href="http://www.morguefile.com" target="_blank" rel="external">http://www.morguefile.com</a></li>
+<li><a href="http://www.freeimages.com" target="_blank" rel="external">http://www.freeimages.com</a></li>
+<li><a href="http://openphoto.net" target="_blank" rel="external">http://openphoto.net</a></li>
+<li><a href="http://search.creativecommons.org" target="_blank" rel="external">http://search.creativecommons.org</a></li>
+<li><a href="http://www.flickr.com/creativecommons" target="_blank" rel="external">http://www.flickr.com/creativecommons</a></li>
+<li>ICON: <a href="http://www.flaticon.com" target="_blank" rel="external">http://www.flaticon.com</a></li>
+<li>ICON: <a href="http://www.somerandomdude.com/work/sanscons/" target="_blank" rel="external">http://www.somerandomdude.com/work/sanscons/</a></li>
+<li>Tiling patterns: <a href="http://www.colourlovers.com/patterns" target="_blank" rel="external">http://www.colourlovers.com/patterns</a></li>
+<li>Tiling patterns: <a href="http://www.kollermedia.at/pattern4u" target="_blank" rel="external">http://www.kollermedia.at/pattern4u</a></li>
+<li>Tiling patterns: <a href="http://squidfingers.com/patterns" target="_blank" rel="external">http://squidfingers.com/patterns</a></li>
+<li>Tiling patterns2: <a href="http://bgpatterns.com" target="_blank" rel="external">http://bgpatterns.com</a></li>
+<li>Tiling patterns2: <a href="http://stripegenerator.com" target="_blank" rel="external">http://stripegenerator.com</a></li>
+<li>Tiling patterns2: <a href="http://patterncooler.com" target="_blank" rel="external">http://patterncooler.com</a></li>
+</ul>
+<h2 id="lt-img-gt-标签"><a href="#lt-img-gt-标签" class="headerlink" title="&lt;img&gt;标签"></a><code>&lt;img&gt;</code>标签</h2><p><code>&lt;img&gt;</code> 最常用的属性: <strong>border</strong> <strong>padding</strong> <strong>float</strong> <strong>margin</strong> <strong>border-radus</strong></p>
+<h2 id="作为背景的图片"><a href="#作为背景的图片" class="headerlink" title="作为背景的图片"></a>作为背景的图片</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">body &#123;</div><div class="line">  background-image: url(images/bg.png);</div><div class="line">&#125;</div><div class="line">url(../images/bg.png) /* document-relative */</div><div class="line">url(/images/bg.png)   /* root-relative */</div><div class="line">url('/images/bg.png') /* quotes or not both ok */</div><div class="line">url("/images/bg.png")</div></pre></td></tr></table></figure>
+<p><strong>GIF</strong> <strong>JPEG</strong> <strong>PNG</strong> <strong>SVG</strong></p>
+<ul>
+<li>GIF (Graphics Interchange Format): 动态图</li>
+<li>JPEG(Joint Photographic Experts Group): 色彩丰富, 适于照片</li>
+<li>PNG (Portable Network Graphics)<ul>
+<li>png8 取代gif;</li>
+<li>png24, png32比jpeg色彩更丰富,但体积更大;</li>
+<li>png提供alpha通道;</li>
+</ul>
+</li>
+<li>SVG (Scalable Vector Grphic)</li>
+</ul>
+<h2 id="控制重复"><a href="#控制重复" class="headerlink" title="控制重复"></a>控制重复</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attribute">background-repeat</span>: <span class="built_in">repeat</span>(D) | no-repeat | repeat-x | repeat-y | round | space;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><code>round</code> 使图片变形来填满背景(下图左);</li>
+<li><code>space</code> 不变形图片, 在重复图片间填充space来铺满背景(下图右).</li>
+</ul>
+<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/12191443.jpg" alt=""></p>
+<h2 id="定位背景图片"><a href="#定位背景图片" class="headerlink" title="定位背景图片"></a>定位背景图片</h2><h3 id="简单定位"><a href="#简单定位" class="headerlink" title="简单定位"></a>简单定位</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  background-postion: &#123;left center right&#125; &#123;top center bottom&#125;;</div><div class="line">  background-postion: 5px 8px;</div><div class="line">  background-postion: 20% 80%;</div><div class="line">  background-postion: 5px 50%;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/94432684.jpg" alt=""></p>
+<h3 id="固定图片位置-不滚动"><a href="#固定图片位置-不滚动" class="headerlink" title="固定图片位置(不滚动)"></a>固定图片位置(不滚动)</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attribute">background-attachment</span>: fixed | <span class="built_in">scroll</span>(D);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="背景的原点和裁剪"><a href="#背景的原点和裁剪" class="headerlink" title="背景的原点和裁剪"></a>背景的原点和裁剪</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attribute">background-origin</span>: <span class="built_in">boder-box</span>(D) | padding-box | content-box;</div><div class="line">  <span class="attribute">background-clip</span>: <span class="built_in">boder-box</span>(D) | padding-box | content-box;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="缩放背景图片"><a href="#缩放背景图片" class="headerlink" title="缩放背景图片"></a>缩放背景图片</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line"> <span class="attribute">background-size</span>: <span class="number">100px</span> <span class="number">200px</span>;</div><div class="line"> <span class="attribute">background-size</span>: <span class="number">100px</span> auto; <span class="comment">/* keep aspect ratio */</span></div><div class="line"> <span class="attribute">background-size</span>: <span class="number">100%</span> <span class="number">100%</span>;  <span class="comment">/* scall to fit the background */</span></div><div class="line"> <span class="attribute">background-size</span>: contain;    </div><div class="line"> <span class="attribute">background-size</span>: cover;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>contain</code>: forces the image to resize to fit the background space of the page element while maintaing the aspect ratio of the image.<br><code>cover</code>: forces the width of the image to fit the width of the element and the height of the image to fit the height of the element, without changing the aspect of the image.<br><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/37927189.jpg" alt=""></p>
+<h2 id="Background-属性速记法"><a href="#Background-属性速记法" class="headerlink" title="Background 属性速记法"></a>Background 属性速记法</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attribute">background</span>: img <span class="built_in">postiton</span>(x,y)/size repeat origin clip attachment color; </div><div class="line">&#125;</div><div class="line"><span class="selector-tag">body</span> &#123;</div><div class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(bullseye.gif) center center / <span class="number">50%</span> no-repeat fixed <span class="number">#FFF</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="为滚动设置多个背景图片"><a href="#为滚动设置多个背景图片" class="headerlink" title="为滚动设置多个背景图片"></a>为<strong>滚动</strong>设置多个背景图片</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(scrollTop.jpg) center top no-repeat,</div><div class="line">              <span class="built_in">url</span>(scrollBottom.jpg) center bottom no-repeat,</div><div class="line">              <span class="built_in">url</span>(scrollMiddle.jpg) center top repeat-y;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="渐变背景"><a href="#渐变背景" class="headerlink" title="渐变背景"></a>渐变背景</h2><h3 id="线性渐变"><a href="#线性渐变" class="headerlink" title="线性渐变"></a>线性渐变</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line"><span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(to right, black, white);</div><div class="line"><span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(to bottom right, black, white);</div><div class="line"><span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(135deg, rgb(0,0,0), white);</div><div class="line"><span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(135deg, black, rgb(255,255,255), <span class="built_in">HSL</span>(0,0%,0%) ...);</div><div class="line"><span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(to right, #900, #FC0 10%, 3FC0 90%, #900);</div><div class="line"><span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(to right, #900 20%, #FC0 30%, 3FC0 70%, #900 80%);</div><div class="line"><span class="attribute">background-image</span>:</div><div class="line">  <span class="built_in">line-gradient</span>(cyan, transparent),</div><div class="line">  <span class="built_in">line-gradient</span>(255deg, magenta, transparent),</div><div class="line">  <span class="built_in">line-gradient</span>(45deg, yellow, transparent);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/44445076.jpg" alt=""></p>
+<h3 id="重复线性渐变"><a href="#重复线性渐变" class="headerlink" title="重复线性渐变"></a>重复线性渐变</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">repeating-linear-gradient</span>(45deg, c1 atp1, c2 atp2, c3 atp3);</div><div class="line"></div><div class="line">  <span class="comment">/* 下图 左 */</span></div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">repeating-linear-gradient</span>(45deg, #900 20px, #FC0 30px, #900 40px);</div><div class="line"></div><div class="line">  <span class="comment">/* 下图 右 */</span></div><div class="line">  <span class="comment">/* SOLID strips: 0-10px -&gt; solid #900; 10-20px -&gt; solid FC0 */</span></div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">repeating-linear-gradient</span>(45deg, #900 0, #900 10px, #FC0 10px, #FC0 20px);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/30100339.jpg" alt=""></p>
+<h3 id="径向渐变"><a href="#径向渐变" class="headerlink" title="径向渐变"></a>径向渐变</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="comment">/* top left */</span></div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">radial-gradient</span>(red, blue);</div><div class="line">  <span class="comment">/* top right */</span></div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">radial-gradient</span>(circle, red, blue);</div><div class="line">  <span class="comment">/* middle left ?????? */</span></div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">radial-gradient</span>(circle at 20% 40%, red, blue);</div><div class="line">  <span class="comment">/* middle left */</span></div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">radial-gradient</span>(closest-side circle at 20% 40%, red, blue);</div><div class="line">  <span class="comment">/* middle right */</span></div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">radial-gradient</span>(closest-corner circle at 20% 40%, red, blue);</div><div class="line">  <span class="comment">/* bottom left */</span></div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">radial-gradient</span>(farthest-side circle at 20% 40%, red, blue);</div><div class="line">  <span class="comment">/* bottom right */</span></div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">radial-gradient</span>(farthest-corner circle at 20% 40%, red, blue);</div><div class="line">  <span class="comment">/* color stops */</span></div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">radial-gradient</span>(circle at 20% 40%, red 20%, orange 80%, yellow);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/69671553.jpg" alt=""></p>
+<h3 id="重复径向渐变"><a href="#重复径向渐变" class="headerlink" title="重复径向渐变"></a>重复径向渐变</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">repeating-radial-gradient</span>(circle, red 20px, orange 30px, yellow 40px, red 50px);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag"># CSS</a>
+          
+            <a href="/tags/Web/" rel="tag"># Web</a>
+          
+            <a href="/tags/CSSMM4E/" rel="tag"># CSSMM4E</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/17/CSSMM4E-P2-C07-Margins-Paddings-and-Borders/" rel="next" title="CSSMM4E 笔记 - 2.07 - Margins, Paddings, 和 Borders">
+                <i class="fa fa-chevron-left"></i> CSSMM4E 笔记 - 2.07 - Margins, Paddings, 和 Borders
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/09/CSSMM4E-P2-C09-Sprucing-Up-Your-Sites-Navigation/" rel="prev" title="CSSMM4E 笔记 - 2.09 - 美化网站的导航">
+                CSSMM4E 笔记 - 2.09 - 美化网站的导航 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="qinxij" />
+          <p class="site-author-name" itemprop="name">qinxij</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#免费图片"><span class="nav-number">1.</span> <span class="nav-text">免费图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lt-img-gt-标签"><span class="nav-number">2.</span> <span class="nav-text"><img>标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作为背景的图片"><span class="nav-number">3.</span> <span class="nav-text">作为背景的图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#控制重复"><span class="nav-number">4.</span> <span class="nav-text">控制重复</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定位背景图片"><span class="nav-number">5.</span> <span class="nav-text">定位背景图片</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单定位"><span class="nav-number">5.1.</span> <span class="nav-text">简单定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#固定图片位置-不滚动"><span class="nav-number">5.2.</span> <span class="nav-text">固定图片位置(不滚动)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#背景的原点和裁剪"><span class="nav-number">5.3.</span> <span class="nav-text">背景的原点和裁剪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缩放背景图片"><span class="nav-number">5.4.</span> <span class="nav-text">缩放背景图片</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Background-属性速记法"><span class="nav-number">6.</span> <span class="nav-text">Background 属性速记法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为滚动设置多个背景图片"><span class="nav-number">7.</span> <span class="nav-text">为滚动设置多个背景图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#渐变背景"><span class="nav-number">8.</span> <span class="nav-text">渐变背景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线性渐变"><span class="nav-number">8.1.</span> <span class="nav-text">线性渐变</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重复线性渐变"><span class="nav-number">8.2.</span> <span class="nav-text">重复线性渐变</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#径向渐变"><span class="nav-number">8.3.</span> <span class="nav-text">径向渐变</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重复径向渐变"><span class="nav-number">8.4.</span> <span class="nav-text">重复径向渐变</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qinxij</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

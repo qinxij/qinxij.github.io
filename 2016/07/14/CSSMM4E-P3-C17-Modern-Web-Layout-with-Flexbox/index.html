@@ -1,0 +1,731 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CSS,Web,CSSMM4E," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Flexbox简介
+Flex 容器 - 通常为div display: [--webkit--]flex 自动添加前缀Autoprefixer: https://github.com/postcss/autoprefixer “Can I use” 列出了实时更新的浏览器支持的CSS特性: http://caniuse.com/#info_about Flex容器 不是block-level元素.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSSMM4E 笔记 - 3.17 - 使用Flexbox的现代Web布局">
+<meta property="og:url" content="http://qinxij.me/2016/07/14/CSSMM4E-P3-C17-Modern-Web-Layout-with-Flexbox/index.html">
+<meta property="og:site_name" content="秦小">
+<meta property="og:description" content="Flexbox简介
+Flex 容器 - 通常为div display: [--webkit--]flex 自动添加前缀Autoprefixer: https://github.com/postcss/autoprefixer “Can I use” 列出了实时更新的浏览器支持的CSS特性: http://caniuse.com/#info_about Flex容器 不是block-level元素.">
+<meta property="og:image" content="http://i1.piimg.com/1949/b4bf68e227be30f5.png">
+<meta property="og:image" content="http://i1.piimg.com/1949/0f8d673193f9e762.png">
+<meta property="og:image" content="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/47672995.jpg">
+<meta property="og:image" content="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/83700928.jpg">
+<meta property="og:image" content="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/34949366.jpg">
+<meta property="og:image" content="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/90889716.jpg">
+<meta property="og:image" content="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/5853127.jpg">
+<meta property="og:updated_time" content="2016-12-31T20:58:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSSMM4E 笔记 - 3.17 - 使用Flexbox的现代Web布局">
+<meta name="twitter:description" content="Flexbox简介
+Flex 容器 - 通常为div display: [--webkit--]flex 自动添加前缀Autoprefixer: https://github.com/postcss/autoprefixer “Can I use” 列出了实时更新的浏览器支持的CSS特性: http://caniuse.com/#info_about Flex容器 不是block-level元素.">
+<meta name="twitter:image" content="http://i1.piimg.com/1949/b4bf68e227be30f5.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://qinxij.me/2016/07/14/CSSMM4E-P3-C17-Modern-Web-Layout-with-Flexbox/"/>
+
+
+
+
+
+  <title> CSSMM4E 笔记 - 3.17 - 使用Flexbox的现代Web布局 | 秦小 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">秦小</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">秦小军的网络日志</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://qinxij.me/2016/07/14/CSSMM4E-P3-C17-Modern-Web-Layout-with-Flexbox/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="qinxij">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="秦小">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="秦小" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CSSMM4E 笔记 - 3.17 - 使用Flexbox的现代Web布局
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-14T18:11:24+08:00">
+                2016-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Flexbox简介"><a href="#Flexbox简介" class="headerlink" title="Flexbox简介"></a>Flexbox简介</h3><ul>
+<li>Flex 容器 - 通常为div<br> <code>display: [--webkit--]flex</code><br> 自动添加前缀Autoprefixer: <a href="https://github.com/postcss/autoprefixer" target="_blank" rel="external">https://github.com/postcss/autoprefixer</a><br> “Can I use” 列出了实时更新的浏览器支持的CSS特性: <a href="http://caniuse.com/#info_about" target="_blank" rel="external">http://caniuse.com/#info_about</a><br> <strong>Flex容器 不是block-level元素.</strong></li>
+<li>Flex 子项(Flex items) - flex 容器的所有 <strong>直接</strong> 子元素<br> Flex 子项 margins <strong>不塌陷(don’t collapse)</strong></li>
+</ul>
+<h3 id="Flex容器的属性"><a href="#Flex容器的属性" class="headerlink" title="Flex容器的属性"></a>Flex容器的属性</h3><h4 id="display-flex-成为容器"><a href="#display-flex-成为容器" class="headerlink" title="display: flex; - 成为容器"></a><strong><code>display: flex;</code></strong> - 成为容器</h4><p>让元素成为Flex容器</p>
+<h4 id="flex-flow-排列方式"><a href="#flex-flow-排列方式" class="headerlink" title="flex-flow - 排列方式"></a><strong><code>flex-flow</code></strong> - 排列方式</h4><p>Flex子项的排列方式(行列，起始端，是否断行/列)<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">.flex-container &#123;</div><div class="line">  flex-flow: &#123; row | row-reverse | column | column-reverse &#125; &#123; wrap | nowrap | wrap-reverse &#125;;</div><div class="line">  flex-flow: row wrap;` = `flex-direction: row; flex-wrap: wrap;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li><code>row</code> - <strong>Default</strong>,  side by side </li>
+<li><code>row-reverse</code> - side by side but reverse</li>
+<li><code>column</code> - top to bottom</li>
+<li><code>column</code> - reversely top to bottom </li>
+<li><code>nowrap</code> - <strong>Default</strong>,  keep <strong>all</strong> items in the <strong>single</strong> row or column</li>
+<li><code>wrap</code> - let items that don’t fit inside the container’s width drop down to new (or over to a new column).</li>
+<li><code>wrap-reverse</code> - like wrap, and reverse</li>
+</ul>
+<h4 id="justify-content-子项在行中的对齐方式"><a href="#justify-content-子项在行中的对齐方式" class="headerlink" title="justify-content - 子项在行中的对齐方式"></a><strong><code>justify-content</code></strong> - 子项在行中的对齐方式</h4><p>只当子项都设置了宽度并且子项的总宽度小于容器时才起作用.</p>
+<ul>
+<li><code>flex-start</code> - 左对齐; if <code>row-reverse</code> 右对齐? </li>
+<li><code>flex-end</code> - 右对齐, if <code>row-reverse</code> 左对齐. </li>
+<li><code>center</code> - 居中对齐</li>
+<li><code>space-between</code> - 两端对齐, 将空白平均填充在items两两之间(between)</li>
+<li><code>space-around</code> - 类似space-between, 同时在所有items两端增加空白</li>
+</ul>
+<!-- ![](http://oc0fp7t3p.bkt.clouddn.com/16-8-17/52492252.jpg) -->
+<p><img src="http://i1.piimg.com/1949/b4bf68e227be30f5.png" alt="Markdown"></p>
+<h4 id="align-items-不同高度子项的垂直对齐方式"><a href="#align-items-不同高度子项的垂直对齐方式" class="headerlink" title="align-items - 不同高度子项的垂直对齐方式"></a><strong><code>align-items</code></strong> - 不同高度子项的垂直对齐方式</h4><ul>
+<li><code>flex-start</code> - top</li>
+<li><code>flex-end</code>   - bottom</li>
+<li><code>center</code>     - center</li>
+<li><code>baseline</code>   - basline of the first element within the flex</li>
+<li><code>stretch</code>    - <strong>Default</strong> stretch to the same height </li>
+</ul>
+<!-- ![](http://oc0fp7t3p.bkt.clouddn.com/16-8-17/82924662.jpg) -->
+<p><img src="http://i1.piimg.com/1949/0f8d673193f9e762.png" alt="Markdown"></p>
+<h4 id="align-content-断行-wrap-时怎样排列子项"><a href="#align-content-断行-wrap-时怎样排列子项" class="headerlink" title="align-content - 断行(wrap)时怎样排列子项"></a><strong><code>align-content</code></strong> - 断行(wrap)时怎样排列子项</h4><p>满足两个条件时起作用: 1. flex 容器必须为 <code>wrap</code> 2. flex 容器高度大于行高和</p>
+<ul>
+<li><code>flex-start</code> - align top for <strong>rows</strong> <strong>以行为单位</strong></li>
+<li><code>flex-end</code> - align bottom for <strong>rows</strong></li>
+<li><code>center</code> - center for <strong>rows</strong></li>
+<li><code>space-between</code> - 纵向两端对齐, 将空白平均填充到row两两之间</li>
+<li><code>space-around</code> - 同上, 但同时在top,  bottom增加空白.</li>
+<li>`stretch``  - stretch items in same row to same height</li>
+</ul>
+<h3 id="Flex子项的属性"><a href="#Flex子项的属性" class="headerlink" title="Flex子项的属性"></a>Flex子项的属性</h3><h4 id="order-对items排序"><a href="#order-对items排序" class="headerlink" title="order - 对items排序"></a><strong><code>order</code></strong> - 对items排序</h4><p><code>order</code> 的默认值应该在 <code>-1</code> and <code>1</code> 之间</p>
+<h4 id="align-self-覆盖容器的-align-items"><a href="#align-self-覆盖容器的-align-items" class="headerlink" title="align-self - 覆盖容器的 align-items"></a><strong><code>align-self</code></strong> - 覆盖容器的 <code>align-items</code></h4><h4 id="flex-关键属性"><a href="#flex-关键属性" class="headerlink" title="flex 关键属性"></a><strong><code>flex</code></strong> 关键属性</h4><p><code>flex: flex-grow flex-shrink flex-basis;</code><br>默认值: <code>flex: 0 1 auto</code></p>
+<p>使用 <code>flex: number</code> 时, <code>flex-basis</code>被设置为0%; 此时flex item宽度完全由<code>flex-grow</code>决定</p>
+<p>flexbox 的解救: <a href="http://philipwalton.github.io/solved-by-flexbox/" target="_blank" rel="external">http://philipwalton.github.io/solved-by-flexbox/</a><br>w3 - flexbox: <a href="https://drafts.csswg.org/css-flexbox/" target="_blank" rel="external">https://drafts.csswg.org/css-flexbox/</a></p>
+<ul>
+<li><code>flex-grow</code> - number indicates the relative width of that flex item</li>
+<li><code>flex-shrink</code> - number 当<code>所有items总的width &gt; cantainer的width</code>时, 控制item能多少量的压缩 </li>
+<li><code>flex-basis</code> - sets a base width for a flex item (100px, 5em, or 50%)</li>
+</ul>
+<p><code>flex-grow</code> 像一个膨胀的力, <code>flex-shrink</code>像一个摩擦力, <code>flex-basis</code>是一个基础的状态<br><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/47672995.jpg" alt=""><br><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/83700928.jpg" alt=""></p>
+<h4 id="浏览器怎样计算flex-item的宽度"><a href="#浏览器怎样计算flex-item的宽度" class="headerlink" title="浏览器怎样计算flex item的宽度"></a>浏览器怎样计算flex item的宽度</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* When the container width is larger than total width of items,</span></div><div class="line">the __flex-shrink__ has no effect */</div><div class="line"><span class="keyword">let</span> delta = cantainer_width / item_count;</div><div class="line">item_width_n = item__flex-basis__n + (delta * item__flex-grow__n)</div></pre></td></tr></table></figure>
+<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/34949366.jpg" alt=""></p>
+<h4 id="再看flex-shrink"><a href="#再看flex-shrink" class="headerlink" title="再看flex-shrink"></a>再看<code>flex-shrink</code></h4><p>这个值只是设置<code>nowrap</code>时才重要; 定义当items总宽度&gt;container宽度时怎样压缩items.<br><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/90889716.jpg" alt=""></p>
+<h4 id="Wrapping-Flex-Items"><a href="#Wrapping-Flex-Items" class="headerlink" title="Wrapping Flex Items"></a>Wrapping Flex Items</h4><p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/5853127.jpg" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag"># CSS</a>
+          
+            <a href="/tags/Web/" rel="tag"># Web</a>
+          
+            <a href="/tags/CSSMM4E/" rel="tag"># CSSMM4E</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/10/CSSMM4E-P3-C16-Using-a-CSS-Grid-System/" rel="next" title="CSSMM4E 笔记 - 3.16 - 使用CSS栅格系统">
+                <i class="fa fa-chevron-left"></i> CSSMM4E 笔记 - 3.16 - 使用CSS栅格系统
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/22/CSSMM4E-P4-Advanced-CSS/" rel="prev" title="CSSMM4E 笔记 - 4.00 - CSS进阶">
+                CSSMM4E 笔记 - 4.00 - CSS进阶 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="qinxij" />
+          <p class="site-author-name" itemprop="name">qinxij</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Flexbox简介"><span class="nav-number">1.</span> <span class="nav-text">Flexbox简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flex容器的属性"><span class="nav-number">2.</span> <span class="nav-text">Flex容器的属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#display-flex-成为容器"><span class="nav-number">2.1.</span> <span class="nav-text">display: flex; - 成为容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flex-flow-排列方式"><span class="nav-number">2.2.</span> <span class="nav-text">flex-flow - 排列方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#justify-content-子项在行中的对齐方式"><span class="nav-number">2.3.</span> <span class="nav-text">justify-content - 子项在行中的对齐方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#align-items-不同高度子项的垂直对齐方式"><span class="nav-number">2.4.</span> <span class="nav-text">align-items - 不同高度子项的垂直对齐方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#align-content-断行-wrap-时怎样排列子项"><span class="nav-number">2.5.</span> <span class="nav-text">align-content - 断行(wrap)时怎样排列子项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flex子项的属性"><span class="nav-number">3.</span> <span class="nav-text">Flex子项的属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#order-对items排序"><span class="nav-number">3.1.</span> <span class="nav-text">order - 对items排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#align-self-覆盖容器的-align-items"><span class="nav-number">3.2.</span> <span class="nav-text">align-self - 覆盖容器的 align-items</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flex-关键属性"><span class="nav-number">3.3.</span> <span class="nav-text">flex 关键属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浏览器怎样计算flex-item的宽度"><span class="nav-number">3.4.</span> <span class="nav-text">浏览器怎样计算flex item的宽度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#再看flex-shrink"><span class="nav-number">3.5.</span> <span class="nav-text">再看flex-shrink</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Wrapping-Flex-Items"><span class="nav-number">3.6.</span> <span class="nav-text">Wrapping Flex Items</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qinxij</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
