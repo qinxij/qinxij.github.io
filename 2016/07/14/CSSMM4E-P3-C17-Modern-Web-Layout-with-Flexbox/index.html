@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -94,12 +94,11 @@ Flex 容器 - 通常为div display: [--webkit--]flex 自动添加前缀Autoprefi
 Flex 容器 - 通常为div display: [--webkit--]flex 自动添加前缀Autoprefixer: https://github.com/postcss/autoprefixer “Can I use” 列出了实时更新的浏览器支持的CSS特性: http://caniuse.com/#info_about Flex容器 不是block-level元素.">
 <meta property="og:image" content="http://i1.piimg.com/1949/b4bf68e227be30f5.png">
 <meta property="og:image" content="http://i1.piimg.com/1949/0f8d673193f9e762.png">
-<meta property="og:image" content="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/47672995.jpg">
-<meta property="og:image" content="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/83700928.jpg">
-<meta property="og:image" content="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/34949366.jpg">
-<meta property="og:image" content="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/90889716.jpg">
-<meta property="og:image" content="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/5853127.jpg">
-<meta property="og:updated_time" content="2016-12-31T20:58:14.000Z">
+<meta property="og:image" content="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/7649607-file_1483253880003_17226.png">
+<meta property="og:image" content="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/56902384-file_1483254640908_109ef.png">
+<meta property="og:image" content="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/65300568-file_1483254640795_17e77.png">
+<meta property="og:image" content="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/41675021-file_1483254641021_3283.png">
+<meta property="og:updated_time" content="2017-01-01T07:12:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSSMM4E 笔记 - 3.17 - 使用Flexbox的现代Web布局">
 <meta name="twitter:description" content="Flexbox简介
@@ -112,7 +111,7 @@ Flex 容器 - 通常为div display: [--webkit--]flex 自动添加前缀Autoprefi
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Mist',
+    scheme: 'Pisces',
     sidebar: {"position":"left","display":"post"},
     fancybox: true,
     motion: true,
@@ -383,7 +382,6 @@ Flex 容器 - 通常为div display: [--webkit--]flex 自动添加前缀Autoprefi
 <li><code>space-between</code> - 两端对齐, 将空白平均填充在items两两之间(between)</li>
 <li><code>space-around</code> - 类似space-between, 同时在所有items两端增加空白</li>
 </ul>
-<!-- ![](http://oc0fp7t3p.bkt.clouddn.com/16-8-17/52492252.jpg) -->
 <p><img src="http://i1.piimg.com/1949/b4bf68e227be30f5.png" alt="Markdown"></p>
 <h4 id="align-items-不同高度子项的垂直对齐方式"><a href="#align-items-不同高度子项的垂直对齐方式" class="headerlink" title="align-items - 不同高度子项的垂直对齐方式"></a><strong><code>align-items</code></strong> - 不同高度子项的垂直对齐方式</h4><ul>
 <li><code>flex-start</code> - top</li>
@@ -392,7 +390,6 @@ Flex 容器 - 通常为div display: [--webkit--]flex 自动添加前缀Autoprefi
 <li><code>baseline</code>   - basline of the first element within the flex</li>
 <li><code>stretch</code>    - <strong>Default</strong> stretch to the same height </li>
 </ul>
-<!-- ![](http://oc0fp7t3p.bkt.clouddn.com/16-8-17/82924662.jpg) -->
 <p><img src="http://i1.piimg.com/1949/0f8d673193f9e762.png" alt="Markdown"></p>
 <h4 id="align-content-断行-wrap-时怎样排列子项"><a href="#align-content-断行-wrap-时怎样排列子项" class="headerlink" title="align-content - 断行(wrap)时怎样排列子项"></a><strong><code>align-content</code></strong> - 断行(wrap)时怎样排列子项</h4><p>满足两个条件时起作用: 1. flex 容器必须为 <code>wrap</code> 2. flex 容器高度大于行高和</p>
 <ul>
@@ -412,11 +409,11 @@ Flex 容器 - 通常为div display: [--webkit--]flex 自动添加前缀Autoprefi
 <li><code>flex-shrink</code> - number 当<code>所有items总的width &gt; cantainer的width</code>时, 控制item能多少量的压缩 </li>
 <li><code>flex-basis</code> - sets a base width for a flex item (100px, 5em, or 50%)</li>
 </ul>
-<p><code>flex-grow</code> 像一个膨胀的力, <code>flex-shrink</code>像一个摩擦力, <code>flex-basis</code>是一个基础的状态<br><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/47672995.jpg" alt=""><br><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/83700928.jpg" alt=""></p>
+<p><code>flex-grow</code> 像一个膨胀的力, <code>flex-shrink</code>像一个摩擦力, <code>flex-basis</code>是一个基础的状态<br><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/7649607-file_1483253880003_17226.png" alt=""></p>
 <h4 id="浏览器怎样计算flex-item的宽度"><a href="#浏览器怎样计算flex-item的宽度" class="headerlink" title="浏览器怎样计算flex item的宽度"></a>浏览器怎样计算flex item的宽度</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* When the container width is larger than total width of items,</span></div><div class="line">the __flex-shrink__ has no effect */</div><div class="line"><span class="keyword">let</span> delta = cantainer_width / item_count;</div><div class="line">item_width_n = item__flex-basis__n + (delta * item__flex-grow__n)</div></pre></td></tr></table></figure>
-<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/34949366.jpg" alt=""></p>
-<h4 id="再看flex-shrink"><a href="#再看flex-shrink" class="headerlink" title="再看flex-shrink"></a>再看<code>flex-shrink</code></h4><p>这个值只是设置<code>nowrap</code>时才重要; 定义当items总宽度&gt;container宽度时怎样压缩items.<br><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/90889716.jpg" alt=""></p>
-<h4 id="Wrapping-Flex-Items"><a href="#Wrapping-Flex-Items" class="headerlink" title="Wrapping Flex Items"></a>Wrapping Flex Items</h4><p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/5853127.jpg" alt=""></p>
+<p><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/56902384-file_1483254640908_109ef.png" alt=""></p>
+<h4 id="再看flex-shrink"><a href="#再看flex-shrink" class="headerlink" title="再看flex-shrink"></a>再看<code>flex-shrink</code></h4><p>这个值只是设置<code>nowrap</code>时才重要; 定义当items总宽度&gt;container宽度时怎样压缩items.<br><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/65300568-file_1483254640795_17e77.png" alt=""></p>
+<h4 id="Wrapping-Flex-Items"><a href="#Wrapping-Flex-Items" class="headerlink" title="Wrapping Flex Items"></a>Wrapping Flex Items</h4><p><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/41675021-file_1483254641021_3283.png" alt=""></p>
 
       
     </div>
@@ -533,7 +530,7 @@ Flex 容器 - 通常为div display: [--webkit--]flex 自动添加前缀Autoprefi
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -541,7 +538,7 @@ Flex 容器 - 通常为div display: [--webkit--]flex 自动添加前缀Autoprefi
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -550,7 +547,7 @@ Flex 容器 - 通常为div display: [--webkit--]flex 自动添加前缀Autoprefi
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -621,7 +618,7 @@ Flex 容器 - 通常为div display: [--webkit--]flex 自动添加前缀Autoprefi
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
+    NexT.Pisces
   </a>
 </div>
 
@@ -687,6 +684,13 @@ Flex 容器 - 通常为div display: [--webkit--]flex 自动添加前缀Autoprefi
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>

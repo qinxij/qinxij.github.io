@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -97,7 +97,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Mist',
+    scheme: 'Pisces',
     sidebar: {"position":"left","display":"post"},
     fancybox: true,
     motion: true,
@@ -567,7 +567,6 @@
 <li><code>space-between</code> - 两端对齐, 将空白平均填充在items两两之间(between)</li>
 <li><code>space-around</code> - 类似space-between, 同时在所有items两端增加空白</li>
 </ul>
-<!-- ![](http://oc0fp7t3p.bkt.clouddn.com/16-8-17/52492252.jpg) -->
 <p><img src="http://i1.piimg.com/1949/b4bf68e227be30f5.png" alt="Markdown"></p>
 <h4 id="align-items-不同高度子项的垂直对齐方式"><a href="#align-items-不同高度子项的垂直对齐方式" class="headerlink" title="align-items - 不同高度子项的垂直对齐方式"></a><strong><code>align-items</code></strong> - 不同高度子项的垂直对齐方式</h4><ul>
 <li><code>flex-start</code> - top</li>
@@ -576,7 +575,6 @@
 <li><code>baseline</code>   - basline of the first element within the flex</li>
 <li><code>stretch</code>    - <strong>Default</strong> stretch to the same height </li>
 </ul>
-<!-- ![](http://oc0fp7t3p.bkt.clouddn.com/16-8-17/82924662.jpg) -->
 <p><img src="http://i1.piimg.com/1949/0f8d673193f9e762.png" alt="Markdown"></p>
 <h4 id="align-content-断行-wrap-时怎样排列子项"><a href="#align-content-断行-wrap-时怎样排列子项" class="headerlink" title="align-content - 断行(wrap)时怎样排列子项"></a><strong><code>align-content</code></strong> - 断行(wrap)时怎样排列子项</h4><p>满足两个条件时起作用: 1. flex 容器必须为 <code>wrap</code> 2. flex 容器高度大于行高和</p>
 <ul>
@@ -596,11 +594,11 @@
 <li><code>flex-shrink</code> - number 当<code>所有items总的width &gt; cantainer的width</code>时, 控制item能多少量的压缩 </li>
 <li><code>flex-basis</code> - sets a base width for a flex item (100px, 5em, or 50%)</li>
 </ul>
-<p><code>flex-grow</code> 像一个膨胀的力, <code>flex-shrink</code>像一个摩擦力, <code>flex-basis</code>是一个基础的状态<br><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/47672995.jpg" alt=""><br><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/83700928.jpg" alt=""></p>
+<p><code>flex-grow</code> 像一个膨胀的力, <code>flex-shrink</code>像一个摩擦力, <code>flex-basis</code>是一个基础的状态<br><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/7649607-file_1483253880003_17226.png" alt=""></p>
 <h4 id="浏览器怎样计算flex-item的宽度"><a href="#浏览器怎样计算flex-item的宽度" class="headerlink" title="浏览器怎样计算flex item的宽度"></a>浏览器怎样计算flex item的宽度</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* When the container width is larger than total width of items,</span></div><div class="line">the __flex-shrink__ has no effect */</div><div class="line"><span class="keyword">let</span> delta = cantainer_width / item_count;</div><div class="line">item_width_n = item__flex-basis__n + (delta * item__flex-grow__n)</div></pre></td></tr></table></figure>
-<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/34949366.jpg" alt=""></p>
-<h4 id="再看flex-shrink"><a href="#再看flex-shrink" class="headerlink" title="再看flex-shrink"></a>再看<code>flex-shrink</code></h4><p>这个值只是设置<code>nowrap</code>时才重要; 定义当items总宽度&gt;container宽度时怎样压缩items.<br><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/90889716.jpg" alt=""></p>
-<h4 id="Wrapping-Flex-Items"><a href="#Wrapping-Flex-Items" class="headerlink" title="Wrapping Flex Items"></a>Wrapping Flex Items</h4><p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/5853127.jpg" alt=""></p>
+<p><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/56902384-file_1483254640908_109ef.png" alt=""></p>
+<h4 id="再看flex-shrink"><a href="#再看flex-shrink" class="headerlink" title="再看flex-shrink"></a>再看<code>flex-shrink</code></h4><p>这个值只是设置<code>nowrap</code>时才重要; 定义当items总宽度&gt;container宽度时怎样压缩items.<br><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/65300568-file_1483254640795_17e77.png" alt=""></p>
+<h4 id="Wrapping-Flex-Items"><a href="#Wrapping-Flex-Items" class="headerlink" title="Wrapping Flex Items"></a>Wrapping Flex Items</h4><p><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/41675021-file_1483254641021_3283.png" alt=""></p>
 
           
         
@@ -1021,8 +1019,8 @@
 </tbody>
 </table>
 <h2 id="用户界面"><a href="#用户界面" class="headerlink" title="用户界面"></a>用户界面</h2><h3 id="主界面"><a href="#主界面" class="headerlink" title="主界面"></a>主界面</h3><p>GHstars 的主界面由三个面板组成, 左侧边栏, 项目列表, 和 Readme 预览器. 下图中KSFP (见 <strong>键盘快捷键</strong>) 高亮显示.</p>
-<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/72057173.jpg" alt=""></p>
-<h3 id="在侧边栏中编辑"><a href="#在侧边栏中编辑" class="headerlink" title="在侧边栏中编辑"></a>在侧边栏中编辑</h3><p>侧边栏由三个部分组成, 用户头像部分, 三个列表, 以及边部的工具栏. 中间在3个列表分别是分组列表, 标签列表, 语言列表. 它们按不同的方法将所有的项目分类.<br><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/50512447.jpg" alt=""></p>
+<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-12-13/69859106-file_1481626393901_350d.png" alt=""></p>
+<h3 id="在侧边栏中编辑"><a href="#在侧边栏中编辑" class="headerlink" title="在侧边栏中编辑"></a>在侧边栏中编辑</h3><p>侧边栏由三个部分组成, 用户头像部分, 三个列表, 以及边部的工具栏. 中间在3个列表分别是分组列表, 标签列表, 语言列表. 它们按不同的方法将所有的项目分类.<br><img src="http://oc0fp7t3p.bkt.clouddn.com/16-12-13/85930-file_1481626394244_132f4.png" alt=""></p>
 <ul>
 <li>使用底部的工具可以对列表中的分组/标签进行添加, 删除, 改名操作.</li>
 <li>双击分组/标签可以对其进改名.</li>
@@ -1030,15 +1028,13 @@
 <li>如果Sidebar 是 KSFP, 快捷键<code>n</code>添加一个新的分组/标签.</li>
 </ul>
 <h3 id="项目列表"><a href="#项目列表" class="headerlink" title="项目列表"></a>项目列表</h3><p>如果Repolist 是KSFP, 快捷键<code>g</code>对当前选中的项目编辑其分组, <code>t</code>编辑其标签.</p>
-<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/4178824.jpg" alt=""></p>
+<p><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/85361555-file_1483259738791_f0f4.png" alt=""></p>
 <h3 id="Readme-预览器"><a href="#Readme-预览器" class="headerlink" title="Readme 预览器"></a>Readme 预览器</h3><p>预览器带有一个目录表, 可以方便地对项目的Readme时行浏览. 预览器的顶部显示了项目的基本信息.<br>单击标题则在web 浏览器中打开该项目的主页. 在这里也可以对项目进行分组和标签的编辑. 可以unstar 项目, 复制项目的https/ssh/git url.</p>
-<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/96665687.jpg" alt=""></p>
+<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-12-13/55142885-file_1481626394720_a1bc.png" alt=""></p>
 <h3 id="搜索条"><a href="#搜索条" class="headerlink" title="搜索条"></a>搜索条</h3><p>GHstars 有一个浮动搜索条. 点击键盘<code>/</code>或<code>?</code>可以将其击活.</p>
-<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/59586668.jpg" alt=""></p>
-<h3 id="历史查看器"><a href="#历史查看器" class="headerlink" title="历史查看器"></a>历史查看器</h3><p>通过历史查看器, 可以查看用户对收藏项目的组织情况的变更. 选择对勾可以切换到历史版本.</p>
-<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/2335196.jpg" alt=""></p>
+<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-12-13/71100303-file_1481626394090_1219e.png" alt=""></p>
 <h2 id="偏好设置"><a href="#偏好设置" class="headerlink" title="偏好设置"></a>偏好设置</h2><p>偏好设置面板中可以设置用于同步数据的wbddav服务参数, 包括sebdav 的服务器, 用户名, 应用密码. 比如坚果云: <a href="https://www.jianguoyun.com" target="_blank" rel="external">https://www.jianguoyun.com</a></p>
-<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/29902400.jpg" alt=""></p>
+<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-12-13/45132864-file_1481626394378_165f.png" alt=""></p>
 
           
         
@@ -1297,23 +1293,21 @@
 </tbody>
 </table>
 <h2 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h2><h3 id="Main-Page"><a href="#Main-Page" class="headerlink" title="Main Page"></a>Main Page</h3><p>The main page of the app consists of three pannels, sidebar, repo list, and readme previewer. The keyboard shortcuts focused pannel(KSFP, see <strong>Keyboard Shortcuts</strong>) is highted (in the follow screenshot, repo list was the KSFP). </p>
-<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/72057173.jpg" alt=""></p>
-<h3 id="Edit-in-sidebar"><a href="#Edit-in-sidebar" class="headerlink" title="Edit in sidebar"></a>Edit in sidebar</h3><p>Sidebar consists of three part, the top avatar, the three lists, and the bottom tool buttons. The middle lists are groups list, tags list, and languages lsit, each dividies the all starred repositories with different strategies.<br><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/50512447.jpg" alt=""></p>
+<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-12-13/69859106-file_1481626393901_350d.png" alt=""></p>
+<h3 id="Edit-in-sidebar"><a href="#Edit-in-sidebar" class="headerlink" title="Edit in sidebar"></a>Edit in sidebar</h3><p>Sidebar consists of three part, the top avatar, the three lists, and the bottom tool buttons. The middle lists are groups list, tags list, and languages lsit, each dividies the all starred repositories with different strategies.<br><img src="http://oc0fp7t3p.bkt.clouddn.com/16-12-13/85930-file_1481626394244_132f4.png" alt=""></p>
 <ul>
 <li>Use the bottom tool buttons to add groups/tags in the sidebar. </li>
 <li>Double click the group or tag name also make the group/tag editable. </li>
 <li>If the pannel is KSFP, and a proper group/tag is selected, keyboard shortcut <code>e</code> to rename the group/tag; <code>x</code> to delete the group/tag.</li>
 <li>If the pannel is KSFP, keybaord shortcut <code>n</code> to add a new group/tag.</li>
 </ul>
-<h3 id="Repo-list"><a href="#Repo-list" class="headerlink" title="Repo list"></a>Repo list</h3><p>If the pannel is KSFP, keyboard shortcut ‘g’ to edit the repository’s group; ‘t’ to edit the tags.<br><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/4178824.jpg" alt=""></p>
+<h3 id="Repo-list"><a href="#Repo-list" class="headerlink" title="Repo list"></a>Repo list</h3><p>If the pannel is KSFP, keyboard shortcut ‘g’ to edit the repository’s group; ‘t’ to edit the tags.<br><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/85361555-file_1483259738791_f0f4.png" alt=""></p>
 <h3 id="Previewer"><a href="#Previewer" class="headerlink" title="Previewer"></a>Previewer</h3><p>View the reamde with a TOC. The header show basic infomations of the repository. Click the title will open the repository github page in browser.</p>
-<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/96665687.jpg" alt=""></p>
+<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-12-13/55142885-file_1481626394720_a1bc.png" alt=""></p>
 <h3 id="SearchBar"><a href="#SearchBar" class="headerlink" title="SearchBar"></a>SearchBar</h3><p>GHstars has floated search bar (such as the sublime text command bar). Hit <code>/</code> or <code>?</code> on your keybaord to activate it. </p>
-<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/59586668.jpg" alt=""></p>
-<h3 id="Versions-Viewer"><a href="#Versions-Viewer" class="headerlink" title="Versions Viewer"></a>Versions Viewer</h3><p>In Versions Viewer, you can view the difference between two adjacent versions, switch to old versions. The checked box hint the current used version.</p>
-<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/2335196.jpg" alt=""></p>
+<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-12-13/71100303-file_1481626394090_1219e.png" alt=""></p>
 <h2 id="Preferences"><a href="#Preferences" class="headerlink" title="Preferences"></a>Preferences</h2><p>In Preferences pannel you can configure the webdav witch will be used to synchronize you data.</p>
-<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/29902400.jpg" alt=""></p>
+<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-12-13/45132864-file_1481626394378_165f.png" alt=""></p>
 
           
         
@@ -1655,7 +1649,7 @@
 <li><code>display: .. | none;</code> 脱离流, 空白被其他元素填充. </li>
 </ol>
 <p><code>display: none;</code> skip <code>visibility</code> property;<br><code>display: none;</code> 同 <code>position: abosulte; visibility: hidden;</code>效果相同.</p>
-<p>css tooltip:<br><a href="http://www.menucool.com/tooltip/css3-tooltip" target="_blank" rel="external">http://www.menucool.com/tooltip/css3-tooltip</a><br><a href="http://qtip2.com//" target="_blank" rel="external">http://qtip2.com//</a><br><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/6542347.jpg" alt=""></p>
+<p>css tooltip:<br><a href="http://www.menucool.com/tooltip/css3-tooltip" target="_blank" rel="external">http://www.menucool.com/tooltip/css3-tooltip</a><br><a href="http://qtip2.com//" target="_blank" rel="external">http://qtip2.com//</a><br><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/97035793-file_1483255023706_854a.png" alt=""></p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">/* 1. Create the HTML for the image and caption. */</div><div class="line"><span class="tag">&lt;<span class="name">figure</span> <span class="attr">class</span>=<span class="string">"hat"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"hat.jpg"</span> <span class="attr">width</span>=<span class="string">"100"</span> <span class="attr">height</span>=<span class="string">"100"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">figcaption</span>&gt;</span>A picture of a hat<span class="tag">&lt;/<span class="name">figcaption</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">figure</span>&gt;</span></div><div class="line"></div><div class="line">/* 2. Postion the Caption. */</div><div class="line">.hat &#123;</div><div class="line">  postion: relative;</div><div class="line">  width: 100px;</div><div class="line">  height: 100px;</div><div class="line">&#125;</div><div class="line">.hat figcaption &#123;</div><div class="line"></div><div class="line">  display: none;  /* 3. Hide the caption */</div><div class="line">  /* or</div><div class="line">   * opacity: 0;</div><div class="line">   * transition: opacity .5s ease-in; */</div><div class="line">  postion: absolute;</div><div class="line">  bottom: 0;</div><div class="line">  left: 0;</div><div class="line">  right: 0;</div><div class="line">  background-color: white;</div><div class="line">&#125;</div><div class="line">/* 4. Make the caption appear when a visitor mouses over the image. */</div><div class="line">.hat:hover figcaption &#123;</div><div class="line">  display: block;</div><div class="line">  /* or</div><div class="line">   * opacity: 1; */</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -1819,10 +1813,10 @@
 <li>浮动所有列<br>比如: 3列: 1. Float sidebar1 left;  2. Float main content; 3. Float right sidebar2.</li>
 <li>浮动中的浮动<br>比如: 3列: 1. Wrap left sidebar and main; 2. Float main right, left sidebar left; 3. Float right sidebar right.</li>
 </ul>
-<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/41054800.jpg" alt=""></p>
+<p><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/29371314-file_1483255607668_10fe9.png" alt=""></p>
 <h2 id="克服浮动-float-的缺陷"><a href="#克服浮动-float-的缺陷" class="headerlink" title="克服浮动(float)的缺陷"></a>克服浮动(float)的缺陷</h2><h3 id="Clearing-and-Containing-Floats-why"><a href="#Clearing-and-Containing-Floats-why" class="headerlink" title="Clearing and Containing Floats why?"></a>Clearing and Containing Floats <a href="http://www.complexspiral.com/publications/containing-floats/" target="_blank" rel="external">why?</a></h3><p>由于Floating元素下面的元素会包围它, 有时这是我们不期望的.<br>用 <code>footer { clear: both; }</code> 解决.</p>
 <p>当容器中Floating元素后面没有后继元素/后继元素较短时, 容器会收缩(就当Floating元素不存在). </p>
-<p>如下图: 标题”Bathtub…” 与下面两个小section在同一个Container(浅灰色背景)中<br>由于sections floating, 导致Container Collapse.<br>三个长条容器, 其中三个img floating,  collapse.<br><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/23206040.jpg" alt=""></p>
+<p>如下图: 标题”Bathtub…” 与下面两个小section在同一个Container(浅灰色背景)中<br>由于sections floating, 导致Container Collapse.<br>三个长条容器, 其中三个img floating,  collapse.<br><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/82119633-file_1483255607804_1d4d.png" alt=""></p>
 <p>解决方案:</p>
 <ol>
 <li>在容器底部加一个 clearing 元素<br>缺点: 额外的元素.</li>
@@ -2150,7 +2144,7 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">caption</span> <span class="attr">align</span>=<span class="string">"bottom"</span>&gt;</span></div><div class="line">    Table 1: CosmoFarmer.com's Indoor Mower Roundup</div><div class="line">  <span class="tag">&lt;/<span class="name">caption</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">colgroup</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">col</span> <span class="attr">class</span>=<span class="string">"brand"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">col</span> <span class="attr">class</span>=<span class="string">"price"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">col</span> <span class="attr">class</span>=<span class="string">"power"</span> /&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">colgroup</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">thead</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">th</span> <span class="attr">scope</span>=<span class="string">"col"</span>&gt;</span>Brand<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">th</span> <span class="attr">scope</span>=<span class="string">"col"</span>&gt;</span>Price<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">th</span> <span class="attr">scope</span>=<span class="string">"col"</span>&gt;</span>Power Source<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>Chinook Push-o-matic Indoor Mower<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>$247.00<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>Mechanical<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>Sampson Deluxe Apartment Mower<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>$370.00<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>Mechanical<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></div></pre></td></tr></table></figure>
 <h2 id="表格样式"><a href="#表格样式" class="headerlink" title="表格样式"></a>表格样式</h2><h3 id="添加留白"><a href="#添加留白" class="headerlink" title="添加留白"></a>添加留白</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">td</span>, <span class="selector-tag">th</span> &#123; <span class="attribute">padding</span>: <span class="number">10px</span>; &#125;</div></pre></td></tr></table></figure>
 <h3 id="横向、竖向对齐"><a href="#横向、竖向对齐" class="headerlink" title="横向、竖向对齐"></a>横向、竖向对齐</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">table &#123; text-align: right; &#125;        /* text-align is an inherited property */</div><div class="line">th, td &#123; vertical-align: center; &#125;  /* vertical-align is NOT inherited */</div><div class="line">vertical-align: top | baseline | middle | bottom;</div></pre></td></tr></table></figure>
-<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/47929328.jpg" alt=""><br><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/21638268.jpg" alt=""></p>
+<p><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/88880263-file_1483256298459_7936.png" alt=""><br><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/59836018-file_1483256298592_123ad.png" alt=""></p>
 <h3 id="表格边框"><a href="#表格边框" class="headerlink" title="表格边框"></a>表格边框</h3><p>对table 使用border, 只影响table最外面的border;<br>对td, th使用border, 会产生可见的cells间的空隙.</p>
 <ul>
 <li><p>单元格间的空隙</p>
@@ -2161,7 +2155,7 @@
 </li>
 <li><p>圆角</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">td</span> &#123;</div><div class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid black;</div><div class="line">  <span class="comment">/* 如果设置了border-collapse, radius将被忽略. */</span></div><div class="line">  <span class="attribute">border-radius</span>: <span class="number">5px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/62152142.jpg" alt=""></p>
+<p><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/59732902-file_1483256298289_13903.png" alt=""></p>
 </li>
 </ul>
 <h3 id="行、列的样式"><a href="#行、列的样式" class="headerlink" title="行、列的样式"></a>行、列的样式</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.products</span> <span class="selector-tag">tr</span><span class="selector-pseudo">:nth-of-type(odd)</span> &#123;&#125;</div><div class="line"><span class="selector-class">.products</span> <span class="selector-tag">tr</span><span class="selector-pseudo">:nth-of-type(even)</span> &#123;&#125;</div></pre></td></tr></table></figure>
@@ -2265,7 +2259,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2273,7 +2267,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2282,7 +2276,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -2337,7 +2331,7 @@
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
+    NexT.Pisces
   </a>
 </div>
 
@@ -2403,6 +2397,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
 
   
 
