@@ -256,6 +256,373 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://qinxij.me/2016/10/20/Thoughtful-css-architecture/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="qinxij">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="秦小">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="秦小" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/10/20/Thoughtful-css-architecture/" itemprop="url">
+                  精心设计的 CSS 架构（译）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-20T18:11:24+08:00">
+                2016-10-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本文翻译自 Nathan Rambeck 的<a href="https://seesparkbox.com/foundry/thoughtful_css_architecture" target="_blank" rel="external">Thoughtfull CSS Architecture</a>。</p>
+<p>你是否参与一个 CSS 项目，然后这个项目随着时间慢慢的变得混乱不堪？CSS 样式对 HTML 的影响是很难跟踪的，对 CSS 的小幅改动能修复一个问题，同时也可能引进很多其他的问题，还可能需要丑陋的补丁，甚至会使 Javascript 代码失效。我想我们都遇到过这些问题。但是，只要在项目开始是就就有一个良好的设计，是可以大幅的避免这个问题的。现在我们来谈谈 CSS 的架构吧。</p>
+<h2 id="精巧架构的好处"><a href="#精巧架构的好处" class="headerlink" title="精巧架构的好处"></a>精巧架构的好处</h2><p>精巧 CSS 架构的主要好处就是可扩展性。对任何一个项目来说，不管是项目规模的增长还是团队成员的增加，都会使其可扩展性成为挑战。CSS 项目也不例外。CSS 的层叠(cascading)和全局(global)特征，使它功能强大，同时也很脆弱。不管你写 CSS 代码多久了，你都会遇到这样的情形：你看到自己只是改动了一行 CSS 代码，准备修复一个小 bug，却没想到会使项目的其它好几处都废掉了。这时你只想一头撞死在墙上😂。仔细的设计 CSS 可以为我们带来如下好处：</p>
+<ul>
+<li>更少的样式规则</li>
+<li>更少的样式冲突</li>
+<li>长期可维护性</li>
+<li>新团队成员可以快速融入</li>
+<li>团队成员更轻松地合作</li>
+<li>平滑的项目接力(handoffs)</li>
+</ul>
+<h2 id="CSS-规则的种类"><a href="#CSS-规则的种类" class="headerlink" title="CSS 规则的种类"></a>CSS 规则的种类</h2><p><a href="https://snook.ca/" target="_blank" rel="external">Jonathan Snook</a> 在他书中<a href="https://smacss.com/" target="_blank" rel="external">Scalable and Modular Architecture for CSS</a>(SMACSS) 推广了对 CSS 规则进行分组的概念。将 CSS 规则按照这些良好定义的类别进行分组，可以让我们对每个样式的目的有更好的理解。基于 SMACSS 我将 CSS 规则分组为 7 个类别，确保每个样式刚好符合这些类别中的一个。</p>
+<ul>
+<li>基本样式</li>
+<li>对象</li>
+<li>组件</li>
+<li>状态</li>
+<li>主题(Themes)</li>
+<li>实用工具(Utilities)</li>
+<li>Javascript 钩子(hooks)</li>
+</ul>
+<p>理解这些类别和它们的目标能帮助我们更好的理解我们所写的样式。</p>
+<h3 id="基本样式"><a href="#基本样式" class="headerlink" title="基本样式"></a>基本样式</h3><p>基本样式是为元素标签所写的样式。它们是整个网站全局的默认样式。通常，这些样式包括排版，盒子尺寸(box-sizing)，以及为不同浏览器表现不一的元素统一格式。一个常见的错误就是，对基本元素添加过多的样式，创建了不是真正需要的默认样式。比如，你应该不会全局地删除无序列表的项目符号吧？</p>
+<h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><p>对象是指只关注结构和布局的规则。装饰性的样式不能分组到对象类别。对象样式的概念是<a href="http://www.slideshare.net/stubbornella/object-oriented-css" target="_blank" rel="external">由 Nicole Sullivan 推广开的</a>, 目的是为了重用结构和布局的通用模式。找出你设计中的结构模式，并创界对象规则，将它们用于多个组件或者网站的各个部分。通过将这些样式放到对象类中，我们可以避免重复，减少 CSS 的大小。网格系统（不管是你自己一手撸的还是引入的框架）就是一个对象类别的例子。</p>
+<h3 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h3><p>组件是相互独立的自包含的 UI 片段。它们是原子设计的面包和黄油，并最终集成到你的样式中去。组件可大可小，可以小到只是一个按钮，也可以大到是一个轮播屏（carousel）。创建健壮的组件的关键在于，保持组件的独立性和自包含性，不能依赖页面的其它部分。这样的话，你就可以把组件扔到任何页面，它自己就能管理好它的结构和设计了。</p>
+<h3 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h3><p>状态类用于帮助更新组件的状态。比如说，折叠组件的打开和折叠，链接激活和未激活，以及元素的显示和隐藏。通常使用 Javascript 来添加这些状态类。不要用 Javascript 来直接处理样式，而是应该更新状态类，让样式表自行决定怎样渲染页面。</p>
+<h3 id="主题（Themes）"><a href="#主题（Themes）" class="headerlink" title="主题（Themes）"></a>主题（Themes）</h3><p>主题类只是简单地变更组件的颜色，字体和其他的装饰性样式。主题类也可以用来改变整个页面的外观，不仅仅用于组件。虽然不是每个项目都用到主题，但你需要时它就变得很有用。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">blockquote</span> <span class="attr">class</span>=<span class="string">"c-pullquote t-light"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>A great quote from someone special.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">blockquote</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="使用工具（Utilities）"><a href="#使用工具（Utilities）" class="headerlink" title="使用工具（Utilities）"></a>使用工具（Utilities）</h3><p>工具类是用于特定样式规则的单一目标的帮助类。它们用来调整 <code>spacing</code>, 增加字体尺寸，居中文本，清除浮动, 隐藏元素等等。工具类还可以用来小幅调整布局，如添加组件之间的间隙或者清除浮动。还能对现成的组件做小幅的修改，以避免创建一个新的组件变种。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.u-sp</span> &#123;</div><div class="line">  <span class="attribute">margin-bottom</span>: <span class="number">1em</span> <span class="meta">!important</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.u-clearfix</span><span class="selector-pseudo">:after</span> &#123;</div><div class="line">  <span class="attribute">content</span>: <span class="string">" "</span>;</div><div class="line">  <span class="attribute">display</span>: block; <span class="attribute">clear</span>: both; <span class="attribute">visibility</span>: hidden;</div><div class="line">  <span class="attribute">height</span>: <span class="number">0</span>; <span class="attribute">font-size</span>: <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.u-txt-center</span> &#123;</div><div class="line">  <span class="attribute">text-align</span>: center <span class="meta">!important</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.u-txt-larger</span> &#123;</div><div class="line">  <span class="attribute">font-size</span>: <span class="number">130%</span> <span class="meta">!important</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"promo u-sp"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"promo u-sp"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"promo"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="Javascript-钩子（hooks）"><a href="#Javascript-钩子（hooks）" class="headerlink" title="Javascript 钩子（hooks）"></a>Javascript 钩子（hooks）</h3><p>只要可能，最好分离 Javascript 与样式之间的依赖。如果一个 CSS 类名同时用于样式应用和 Javascript 选择，将可能引起问题。比如在未来重构了 CSS 样式而 Javascript 没有相应的更新。所以，Javascript 钩子需要它们专用的 CSS 类。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn--buy js-buy-now"</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h2 id="类名"><a href="#类名" class="headerlink" title="类名"></a>类名</h2><p>为类命名时，一定要保证名字长到能轻易辨别（不要用 <code>.pq</code>，要用 <code>.pullquote</code>），但也不要超过需要的长度（要 <code>.nav</code>，不要 <code>.navgation</code>）。使用可读的类名，对团队成员在现在和将来都能理解你代码所表达的逻辑非常重要。</p>
+<p>设计描述性的有意义的类名是写 CSS 是最难得问题，但是指要做好了，就会变得很有帮助。限于篇幅，这里不展开讨论怎样命名，建议看看 Ethan Muller 的这篇文章 <a href="https://seesparkbox.com/foundry/naming_css_stuff_is_really_hard" target="_blank" rel="external">Naming CSS Stuff is Really Hard, by </a> 。</p>
+<h2 id="BEM-命名约定"><a href="#BEM-命名约定" class="headerlink" title="BEM 命名约定"></a>BEM 命名约定</h2><p>BEM (Block, Element, Modifier) 是一个很著名的超好用的 CSS 组件类名命名约定，由俄罗斯最大的搜索引擎 Yandex 开发。BEM 非常简单：</p>
+<p><strong>[BLOCK]__[ELEMENT]-[MODIFIER]</strong></p>
+<p>你可能会吐槽这个命名法是不是太啰嗦了，但是这种担忧很快就会被 BEM 带来的价值所取代。下面是一个使用 BEM 的组件的例子。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"alert alert--warning"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">"alert__title"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"alert__icon"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">    Alert Title</div><div class="line">  <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"alert__description"</span>&gt;</span>The password you entered is invalid.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>BEM 有如下三个好处:</p>
+<ul>
+<li><strong>Readability</strong>: 清晰描述性的类名使 HTML 和 CSS 文件更好读。</li>
+<li><strong>Self-description</strong>: 清楚地指出了哪个元素属于哪个组件。</li>
+<li><strong>Specificity</strong>: 为每一个元素都设置一个类看起来有些过分了。但是，这样做可以保持每个选择操作的低特殊性，使得重载变得更直接。</li>
+</ul>
+<h2 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h2><p>另一个命名类的最佳实践是根据我们前面所描述的分类为类名加一个命名空间前缀。这些前缀在类名前加了几个字符，这些字符对理解这个类的使用目的是极有价值的。下面是我所用的命名空间:</p>
+<ul>
+<li>对象: <code>.o-</code></li>
+<li>组件: <code>.c-</code></li>
+<li>状态: <code>.is-</code> 或 <code>.has-</code></li>
+<li>主题: <code>.t-</code></li>
+<li>实用工具: <code>.u-</code></li>
+<li>Javascript 钩子: <code>.js-</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">footer</span> <span class="attr">class</span>=<span class="string">"c-footer"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"o-container-wide"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"c-footer__logo"</span> <span class="attr">href</span>=<span class="string">"/"</span>&gt;</span>The Assist<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"c-social c-social--follow"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"c-social__label u-txt-center"</span>&gt;</span>Join the conversation<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"c-social__list"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"c-social__item"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"c-social__item is-active"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"c-social__item"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"c-footer__credit"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>关于命名空间价值的更多信息，可以查看 Harry Roberts 的 <a href="http://csswizardry.com/2015/03/more-transparent-ui-code-with-namespaces/" target="_blank" rel="external">More Transparent UI Code With Namespaces</a>。</p>
+<h2 id="代码风格"><a href="#代码风格" class="headerlink" title="代码风格"></a>代码风格</h2><p>像其他任何代码一样，保持代码风格的一致性很重要。包括空白字符，缩进，命名约定，注释等规范。你可以找到从网上找到一些合理代码规范，比如: <a href="https://google.github.io/styleguide/htmlcssguide.xml" target="_blank" rel="external">Google</a>, <a href="http://primercss.io/guidelines/" target="_blank" rel="external">Github</a> 和 <a href="https://github.com/necolas/idiomatic-css" target="_blank" rel="external">Nicolas Gallagher</a>。你可以使用它们，也可以制定自己的规范。</p>
+<h2 id="代码组织"><a href="#代码组织" class="headerlink" title="代码组织"></a>代码组织</h2><p>为了最优化代码的组织你应该使用预处理工具（ <a href="http://sass-lang.com/" target="_blank" rel="external">Sass</a>，<a href="http://lesscss.org/" target="_blank" rel="external">Less</a>，<a href="http://stylus-lang.com/" target="_blank" rel="external">Stylus</a>）和后处理工具（<a href="http://postcss.org/" target="_blank" rel="external">PostCSS</a>）来编译代码。好处很多，包括变量，函数，mixin, import 和 嵌套 (nesting) 等特性。这些特性让你比只是用 CSS 时能写出更具良好组织的架构。</p>
+<p>使用 import, 可以将样式分解成多个意义明确的文件。<br><figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">import</span> <span class="string">"variables"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"mixins"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"normalize"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"typography"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"headings"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"headings"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"layout"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"carousel"</span>;</div></pre></td></tr></table></figure></p>
+<p>为所有使用超过一次的值创建变量。为变量名加一个前缀，让变量的目的明确，同时也可以配合编辑器的补全功能。<br><figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Colors</span></div><div class="line"><span class="variable">$c-warning</span>: Red;</div><div class="line"><span class="variable">$c-primary</span>: Blue;</div><div class="line"><span class="variable">$c-background</span>: White;</div></pre></td></tr></table></figure></p>
+<p>全局变量应该定义在专门的文件中，只用于单个组件的局部变量应定义在当前文件中。对于 Sass，变量可以定义在嵌套的样式规则里面。<br><figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.alert</span> &#123;</div><div class="line">  <span class="variable">$background-color</span>: Red;</div><div class="line">  <span class="variable">$foreground-color</span>: Cream;</div><div class="line">  <span class="attribute">background-color</span>: <span class="variable">$background-color</span>;</div><div class="line">  <span class="attribute">color</span>: <span class="variable">$foreground-color</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="源码顺序"><a href="#源码顺序" class="headerlink" title="源码顺序"></a>源码顺序</h2><p>由于 CSS 层叠的本性，样式的顺序很是重要的。如果你没有特意的安排样式导入的顺序，你会发现你总要不停的与 CSS 的层叠规则进行战斗。</p>
+<p>最近， Harry Roberts 发表了一个<a href="http://www.creativebloq.com/web-design/manage-large-scale-web-projects-new-css-architecture-itcss-41514731" target="_blank" rel="external">排序样式的明智方法/a sensible method for ordering your styles</a>，他把这个方法称作 ITCSS (Inverted Triangle CSS)。其目标是避免名字空间冲突，特异性(specificity)问题，样式泄漏(leaky styles)，和无意的回归(inadvertent regressions) (<a href="https://speakerdeck.com/dafed/managing-css-projects-with-itcss" target="_blank" rel="external">见他的 in-depth slides</a>)。其概念非常简单：将那些应用到最大范围的具有最小特殊性的设定和规则放在最前面，将那些应用到最小范围的具有最大特殊性的置于最后。这就是说，要将变量定义，标签样式规则放在开头，而工具类和 IE 补丁置于结尾。</p>
+<p>Harry 定义了 7 组样式文件类型：</p>
+<ul>
+<li><strong>settings</strong>: 变量和其他设置</li>
+<li><strong>Tools</strong>: 自定义函数和 Mixin</li>
+<li><strong>Generic</strong>: Font-face, box-sizing, normalize 等</li>
+<li><strong>Elements</strong>: 标签默认样式，如标题和链接</li>
+<li><strong>Objects</strong>: 布局和结构类</li>
+<li><strong>Components</strong>: 独立的组件</li>
+<li><strong>Trumps</strong>: 实用工具及终极王牌(Utilities and other rules meant to be a final trump over everything else)</li>
+</ul>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">import</span> <span class="string">"settings.global"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"settings.colors"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"tools.functions"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"tools.mixins"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"generic.box-sizing"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"generic.normalize"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"elements.headings"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"elements.links"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"objects.wrappers"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"objects.grid"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"components.nav"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"components.buttons"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"components.promos"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"trumps.utilities"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"trumps.ie8"</span>;</div></pre></td></tr></table></figure>
+<h2 id="深度挖掘"><a href="#深度挖掘" class="headerlink" title="深度挖掘"></a>深度挖掘</h2><p>这篇文章只简单介绍了正在变得越来越深入和广泛的巨大主题，算是抛砖引玉。希望能激发你的灵感，去创造更加精巧严密的 CSS 结构和设计。如果你想跟深入地了解这方面的主题，可以查看本文中引用的诸多链接，查看下面列出的此领域的领军人物的想法和资源。</p>
+<ul>
+<li><strong>Harry Roberts</strong> - 目前该领域最多产的思想领军人物之一。关注他的 <a href="https://twitter.com/csswizardry" target="_blank" rel="external">Twitter</a>，订阅这个<a href="http://csswizardry.com/" target="_blank" rel="external">博客</a>。阅读他的有关<a href="http://cssguidelin.es/" target="_blank" rel="external">CSS Guidelines</a>的文档。</li>
+<li><strong>Jonathan Snook</strong> - 在他的论文和在线书籍中推广了 CSS 架构的概念， <a href="https://smacss.com/" target="_blank" rel="external">Scalable and Modular Architecture for CSS</a>。</li>
+<li><strong>Nicole Sullivan</strong> - 引入面向对象的 CSS （Object Oriented CSS）的概念。记录在一个 <a href="https://github.com/stubbornella/oocss/wiki" target="_blank" rel="external">Github wiki</a>中。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://qinxij.me/2016/07/29/Opinionated-guide-to-Reactjs-best-practices-and-conventions/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="qinxij">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="秦小">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="秦小" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/29/Opinionated-guide-to-Reactjs-best-practices-and-conventions/" itemprop="url">
+                  React.js 最佳实践的非官方指南
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-29T18:11:24+08:00">
+                2016-07-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>直到现在，我已经使用 React.js 一段时间了。在这个过程中，我开始形成了自己的一套 React.js 最佳实践。</p>
+<p>下面的最佳实践主要关注组件(component)结构和JSX。尽管这写不是硬性的规则，这些我一直坚持使用的规则更多的是能帮助我写出更可读更加健壮和可维护的代码。</p>
+<p><em>注意:</em> 这篇文章不会解释例子中用到的 React 范式和惯用法。这最好还是由 React 小组的<a href="http://facebook.github.io/react/docs/" target="_blank" rel="external">超棒的文档</a>来解释吧。</p>
+<h2 id="组件组成-Component-organisation"><a href="#组件组成-Component-organisation" class="headerlink" title="组件组成(Component organisation)"></a>组件组成(Component organisation)</h2><p>对任何代码来说，保持一致性是很重要的。当然，这也包括构建你的 React 组件的代码了。我使用如下的模式:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">React.createClass(&#123;</div><div class="line"></div><div class="line">    <span class="attr">propTypes</span>: &#123;&#125;,</div><div class="line">    <span class="attr">mixins</span> : [],</div><div class="line"></div><div class="line">    <span class="attr">getInitialState</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;,</div><div class="line">    <span class="attr">getDefaultProps</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;,</div><div class="line"></div><div class="line">    <span class="attr">componentWillMount</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;,</div><div class="line">    <span class="attr">componentWillReceiveProps</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;,</div><div class="line">    <span class="attr">componentWillUnmount</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;,</div><div class="line"></div><div class="line">    <span class="attr">_parseData</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;,</div><div class="line">    <span class="attr">_onSelect</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;,</div><div class="line"></div><div class="line">    <span class="attr">render</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>我喜欢在组件的顶部声明<code>propTypes</code>, 因为它们是一个组件很有用的向导, 告诉我们这个组件以怎样的方式被使用（关于这点参考下面的章节）。接下来是<code>mixins</code>, 因为它能让你一开始就了解这个组件对外部行为的使用和依赖。</p>
+<p>我选择把left-cycle方法分成两组，组件实例生成之前的（比如: <code>getInitialState</code>, <code>getDefaultProps</code>）和 挂载(mounting)、更新(updating)、已挂载(mounted)循环（比如: <code>componentWillMount</code>, <code>shouldComponentUpdate</code>）。而且，我发现按照执行顺序排列生命周期方法使得推测逻辑变得更容易。</p>
+<p>我总是把自定义的方法放在生命周期方法的后面，并且为这些方法加一个下划线前缀，让它们更好识别。我通常会根据它们的用途进行分组（如: 解析，事件处理 等等）。</p>
+<p><code>render</code>方法总是放在最后。<code>render</code> 方法是必须的生命周期方法，当我打开一个文件时几乎总是第一个先去找到它。所以呢，在所有的组件中让他处于一致的位置是实用的吧。</p>
+<p>通常，混合器(mixins)同组件遵循相同的约定。</p>
+<h2 id="总是设置propTypes验证以求自文档化"><a href="#总是设置propTypes验证以求自文档化" class="headerlink" title="总是设置propTypes验证以求自文档化"></a>总是设置propTypes验证以求自文档化</h2><p>我总会使用 <code>propTypes</code> 为最近接收的<code>prop</code> 设置验证。这提供了组件使用的自文档，告诉我们组件如何使用，需要传入哪些<code>prop</code>.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">propTypes: &#123;</div><div class="line">    <span class="attr">arrayProp</span>: React.PropTypes.array,</div><div class="line">    <span class="attr">boolProp</span>: React.PropTypes.bool,</div><div class="line">    <span class="attr">funcProp</span>: React.PropTypes.func,</div><div class="line">    <span class="attr">numProp</span>: React.PropTypes.number,</div><div class="line">    <span class="attr">objProp</span>: React.PropTypes.object,</div><div class="line">    <span class="attr">stringProp</span>: React.PropTypes.string,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="JSX"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</h2><p>不得不说，JSX 有时看起来很丑，这也通常是一些开发者对 React 丑拒的原因。但是，下面一些通用指导可以帮你搞定组件，让它们可读很多，让它们不再辣眼睛。</p>
+<h3 id="多行-JSX"><a href="#多行-JSX" class="headerlink" title="多行 JSX"></a>多行 JSX</h3><p>不管返回的元素多么的少，我都会把嵌套的 JSX 写成多行的形式，并且添加缩进来增强可读性。例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> (</div><div class="line">        <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></div><div class="line">            <span class="tag">&lt;<span class="name">ComponentOne</span> /&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">ComponentTwo</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    );</div></pre></td></tr></table></figure></p>
+<p>而不是。。。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">ComponentOne</span> /&gt;</span><span class="tag">&lt;<span class="name">ComponentTwo</span> /&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>);</div></pre></td></tr></table></figure></p>
+<p>而且，就算单行的 JSX 语句技术上不需要括号，我还是会添上括号，只为了代码的一致性。（还因为没有约束的在我的JS代码里飘来飘去的东东会让我的左眼不受控制的抽搐。。。）</p>
+<h3 id="条件-JSX"><a href="#条件-JSX" class="headerlink" title="条件 JSX"></a>条件 JSX</h3><p>当我有一些这样条件元素（依据<code>state</code>, <code>prop</code>, 或其他的条件返回的元素）时，我会在 render 方法顶部声明一个空的变量，只在条件成立时才把 JSX 传给这个变量 。 当这个变量在 render 方法的返回语句中返回值时，条件元素同时也会被渲染，空值是则不渲染条件元素。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> optionalElement;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="keyword">this</span>.props.condition) &#123;</div><div class="line">    optionalElement = (<span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span> … <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">return</span> (</div><div class="line">    <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></div><div class="line">        …</div><div class="line">        &#123;optionalElement&#125;</div><div class="line">        …</div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">);</div></pre></td></tr></table></figure></p>
+<h3 id="内联列表迭代"><a href="#内联列表迭代" class="headerlink" title="内联列表迭代"></a>内联列表迭代</h3><p>在可能的情况下，我喜欢在返回的 JSX 中对数据列表进行内联迭代。除非迭代的内部逻辑太过复杂，需要移到返回语句之外生成一个可供渲染数组。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> (</div><div class="line">    <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></div><div class="line">        &#123;this.props.list.map(function(data, i) &#123;</div><div class="line">            return (<span class="tag">&lt;<span class="name">Component</span> <span class="attr">data</span>=<span class="string">&#123;data&#125;</span> <span class="attr">key</span>=<span class="string">&#123;i&#125;</span> /&gt;</span>)</div><div class="line">        &#125;)&#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">);</div></pre></td></tr></table></figure>
+<h3 id="缩进、组件属性独占一行"><a href="#缩进、组件属性独占一行" class="headerlink" title="缩进、组件属性独占一行"></a>缩进、组件属性独占一行</h3><p>当组件的属性多到（通常3个或以上）在单行中显示不整洁时，我都会写成多行的形式，并添加缩进。是这样：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;Component</div><div class="line">    attribute=&#123;...&#125;</div><div class="line">    anotherAttribute=&#123;...&#125;</div><div class="line">    attributeThree=&#123;...&#125;</div><div class="line">    …</div><div class="line">/&gt;</div></pre></td></tr></table></figure></p>
+<p>而不是。。。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;Component attribute=&#123;...&#125; anotherAttribute=&#123;...&#125; attributeThree=&#123;...&#125; /&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这些规则并非权威的详尽的指南，但我觉得算是一个好的组织和标准化 React 组件的起点吧。另外我还遇到这些约定的一些其他通用使用场景。</p>
+<p>希望这些规则能为你提供一个组织 React 组件的有用的起点。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://qinxij.me/2016/07/22/CSSMM4E-P4-Advanced-CSS/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -410,6 +777,148 @@
 <h2 id="牛叉的Sass"><a href="#牛叉的Sass" class="headerlink" title="牛叉的Sass"></a>牛叉的Sass</h2><p>运行Sass: 在命令行中cd 到站点文件夹中，假设sass文件位于sass文件夹中</p>
 <p><code>sass --watch sass:css</code></p>
 <p>参见 <a href="https://sass-lang.com" target="_blank" rel="external">https://sass-lang.com</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://qinxij.me/2016/07/20/Controlled-inputs-with-react-js/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="qinxij">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="秦小">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="秦小" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/20/Controlled-inputs-with-react-js/" itemprop="url">
+                  React.js 中的 Controlled Input
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-20T18:11:24+08:00">
+                2016-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近的工作中我大量的使用了 React.js。它是一个用于用户界面开发的库。而且我发现 React.js 背后的概念使得开发用户界面变得非常简单。但是它还是有少许的缺陷。我觉得尤其坑的是 controlled input ，我被这货搞得很无语。</p>
+<p>比如看看下面的代码。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> ( <span class="xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">value</span>=<span class="string">"Hello"</span> /&gt;</span> )</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>你可能会觉得如果在那个 input 里面输入字符会改变它的值。然而事实并非如此。React.js 只允许数据单向流动，视图是不能直接更新组件的状态的。那么，我们要怎样才能改变那个 input 的值呢？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">getInitialState: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">value</span>: <span class="string">"Hello"</span></div><div class="line">  &#125;</div><div class="line">&#125;,</div><div class="line"></div><div class="line"><span class="attr">handleChange</span>: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.setState(&#123;</div><div class="line">    <span class="attr">value</span>: event.target.value</div><div class="line">  &#125;);</div><div class="line">&#125;,</div><div class="line"></div><div class="line"><span class="attr">render</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> ( <span class="xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">value</span>=<span class="string">&#123;this.state.value&#125;</span> <span class="attr">onChange</span>=<span class="string">&#123;this.handleChange&#125;</span> /&gt;</span> )</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在组件里设置了一个初始状态 <code>value</code>, 初始值为字符串 <code>Hello</code>。当这个状态改变时，input 的值也跟着改变。</p>
+<p>到此为止，这个能用的 input 还只实现了一半。</p>
+<p>接下来的函数 <code>handleChange</code> 绑定到 input 的 <code>onChange</code> 事件上。<code>handleChange</code> 使用 input 中输入的值来更新组件的状态。状态更新后的组件使用新的值重新渲染。</p>
+<p>这种实现方式看起来好像有点奇葩有点随意，但是对简单的 UI 编程来说还算可用。</p>
 
           
         
@@ -1687,538 +2196,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://qinxij.me/2016/06/13/CSSMM4E-P3-C13-Building-Float-Based-Layouts/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="qinxij">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="秦小">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="秦小" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/13/CSSMM4E-P3-C13-Building-Float-Based-Layouts/" itemprop="url">
-                  CSSMM4E 笔记 - 3.13 - 构建基于浮动的布局
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-13T18:11:24+08:00">
-                2016-06-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/" itemprop="url" rel="index">
-                    <span itemprop="name">Web</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>这里有模板:</p>
-<ul>
-<li><a href="http://blog.html.it/" target="_blank" rel="external">http://blog.html.it/</a></li>
-<li><a href="http://templated.co/" target="_blank" rel="external">http://templated.co/</a></li>
-</ul>
-<p>模板生成器:</p>
-<ul>
-<li><a href="http://www.pagecolumn.com/" target="_blank" rel="external">http://www.pagecolumn.com/</a></li>
-</ul>
-<p>CSS 本身有列支持:<br><a href="https://www.w3.org/TR/css3-multicol/" target="_blank" rel="external">https://www.w3.org/TR/css3-multicol/</a><br><a href="https://dev.opera.com/articles/css3-multi-column-layout/" target="_blank" rel="external">https://dev.opera.com/articles/css3-multi-column-layout/</a><br><a href="http://aaronlumsden.com/multicol/" target="_blank" rel="external">http://aaronlumsden.com/multicol/</a></p>
-<h2 id="两列设计的步骤"><a href="#两列设计的步骤" class="headerlink" title="两列设计的步骤"></a>两列设计的步骤</h2><ol>
-<li>用<code>&lt;div&gt;</code>包裹每一列，设置ID或class属性<br><code>&lt;div class=&quot;news&quot;&gt;</code> <code>&lt;div class=&quot;main&quot;&gt;</code></li>
-<li>浮动 sidebar <code>div</code> 到左边或右边</li>
-<li>为浮动的 sidebar 设置宽度</li>
-<li>设置 main <code>div</code> 的左或右右 margin</li>
-</ol>
-<h2 id="应用浮动的布局"><a href="#应用浮动的布局" class="headerlink" title="应用浮动的布局"></a>应用浮动的布局</h2><p>Flaot对内容在html出现的顺序有要求.<br>让最重要的内容出在html的最前面对search engine更友好.<br>下面两个方法都可以使主要内容靠前.</p>
-<ul>
-<li>浮动所有列<br>比如: 3列: 1. Float sidebar1 left;  2. Float main content; 3. Float right sidebar2.</li>
-<li>浮动中的浮动<br>比如: 3列: 1. Wrap left sidebar and main; 2. Float main right, left sidebar left; 3. Float right sidebar right.</li>
-</ul>
-<p><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/29371314-file_1483255607668_10fe9.png" alt=""></p>
-<h2 id="克服浮动-float-的缺陷"><a href="#克服浮动-float-的缺陷" class="headerlink" title="克服浮动(float)的缺陷"></a>克服浮动(float)的缺陷</h2><h3 id="Clearing-and-Containing-Floats-why"><a href="#Clearing-and-Containing-Floats-why" class="headerlink" title="Clearing and Containing Floats why?"></a>Clearing and Containing Floats <a href="http://www.complexspiral.com/publications/containing-floats/" target="_blank" rel="external">why?</a></h3><p>由于Floating元素下面的元素会包围它, 有时这是我们不期望的.<br>用 <code>footer { clear: both; }</code> 解决.</p>
-<p>当容器中Floating元素后面没有后继元素/后继元素较短时, 容器会收缩(就当Floating元素不存在). </p>
-<p>如下图: 标题”Bathtub…” 与下面两个小section在同一个Container(浅灰色背景)中<br>由于sections floating, 导致Container Collapse.<br>三个长条容器, 其中三个img floating,  collapse.<br><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/82119633-file_1483255607804_1d4d.png" alt=""></p>
-<p>解决方案:</p>
-<ol>
-<li>在容器底部加一个 clearing 元素<br>缺点: 额外的元素.</li>
-<li>浮动容器元素<br>Floating container expands to fit everything inside it. 但Floating向外传递了.</li>
-<li>使用 <code>overflow:hidden</code><br>加<code>overflow:hidden</code>到container,  但当container中有absolutely positioned元素是就不适用了.</li>
-<li>使用 <strong>Micro Clear Fix</strong>(MCF, 清除修复宏)<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.clear</span><span class="selector-pseudo">:after</span> &#123; <span class="comment">/* clear is the class of the container. */</span></div><div class="line">  <span class="attribute">content</span>: <span class="string">" "</span>;</div><div class="line">  <span class="attribute">display</span>: table;</div><div class="line">  <span class="attribute">clear</span>: both;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="创建全高-full-height-的列"><a href="#创建全高-full-height-的列" class="headerlink" title="创建全高 (full-height) 的列"></a>创建全高 (full-height) 的列</h3><p><a href="https://css-tricks.com/fluid-width-equal-height-columns/" target="_blank" rel="external">First other way</a><br><a href="http://webdesign.tutsplus.com/tutorials/quick-tip-solving-the-equal-height-column-conundrum--cms-20403" target="_blank" rel="external">Second other way</a></p>
-<p>方法1: 为各列设置背景图片包裹.<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.wrapper1</span> &#123; <span class="attribute">background</span>: <span class="built_in">url</span>(images/col1_bg.gif) repeat-y left top; &#125;</div><div class="line"><span class="selector-class">.wrapper2</span> &#123; <span class="attribute">background</span>: <span class="built_in">url</span>(images/col2_bg.gif) repeat-y left top; &#125;</div></pre></td></tr></table></figure></p>
-<p>方法2: Wrap all columns and apply gradient across columns.</p>
-<ol>
-<li>Wrap all three columns.</li>
-<li>Add a linear gradient, with color stop that match the width of the columns.</li>
-</ol>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.wrapper</span> &#123;</div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(left,</div><div class="line">    red 0%, red 25%,</div><div class="line">    white 25%, white 75%,</div><div class="line">    blue 75%, blue 100%);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/17739098.jpg" alt=""></p>
-<h3 id="防止浮动元素挤落"><a href="#防止浮动元素挤落" class="headerlink" title="防止浮动元素挤落"></a>防止浮动元素挤落</h3><p><strong>用 <code>box-sizing</code> 防止浮动元素被挤落</strong><br><code>* { box-sizing: border-box; }</code><br><img src="http://oc0fp7t3p.bkt.clouddn.com/16-8-17/75481935.jpg" alt=""></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://qinxij.me/2016/06/04/CSSMM4E-P3-C12-Introducing-CSS-Layout/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="qinxij">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="秦小">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="秦小" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/04/CSSMM4E-P3-C12-Introducing-CSS-Layout/" itemprop="url">
-                  CSSMM4E 笔记 - 3.12 - CSS 布局简介
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-04T18:11:24+08:00">
-                2016-06-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/" itemprop="url" rel="index">
-                    <span itemprop="name">Web</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Web页面布局类型"><a href="#Web页面布局类型" class="headerlink" title="Web页面布局类型"></a>Web页面布局类型</h2><ul>
-<li>固定宽度 Fixed Width</li>
-<li>流式 Liquid</li>
-<li>响应式web设计 Responsive web design (RWD)</li>
-</ul>
-<h2 id="CSS-布局怎样工作"><a href="#CSS-布局怎样工作" class="headerlink" title="CSS 布局怎样工作"></a>CSS 布局怎样工作</h2><p>最早用表格.</p>
-<p><code>&lt;div&gt;</code>元素分块, 浏览器没有为div预设样式, div只是在块前后加了两个新行.</p>
-<p>应用HTML5新的sectioning Elements代替div.</p>
-<p>CSS Layout 技术:</p>
-<ol>
-<li>浮动 float; </li>
-<li>绝对定位 absolute positioning;</li>
-<li>网格系统 grid system;</li>
-<li>弹性盒子 flexbox.</li>
-</ol>
-<h2 id="布局策略"><a href="#布局策略" class="headerlink" title="布局策略"></a>布局策略</h2><ul>
-<li>从内容开始</li>
-<li>手机优先<br><a href="https://abookapart.com/products/mobile-first" target="_blank" rel="external">https://abookapart.com/products/mobile-first</a><br><a href="http://www.sitepoint.com/making-case-mobile-first-designs/" target="_blank" rel="external">http://www.sitepoint.com/making-case-mobile-first-designs/</a></li>
-<li>用软件/拍板画出梗概<br><a href="https://developer.yahoo.com/ypatterns/wireframes/" target="_blank" rel="external">https://developer.yahoo.com/ypatterns/wireframes/</a></li>
-<li>识别出盒子<br>通过草图得出哪个部分使用何种盒子, div ? section ? …</li>
-<li>顺应标准流</li>
-<li>记得使用背景图片<br>使用背景图片可以通过CSS设置大量的属性, 比<code>&lt;img&gt;</code>更好的控制图片.<br><code>&lt;img&gt;</code>对search engine更有用, 比如<code>alt</code>属性.</li>
-<li>分成小块</li>
-<li>分层处理元素</li>
-<li>别忘了Margin 和 Padding<br>它们有空白效果</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://qinxij.me/2016/05/21/CSSMM4E-P2-C11-Formatting-Tables-and-Forms/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="qinxij">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="秦小">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="秦小" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/21/CSSMM4E-P2-C11-Formatting-Tables-and-Forms/" itemprop="url">
-                  CSSMM4E 笔记 - 2.11 - 格式化表格和表单
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-05-21T18:11:24+08:00">
-                2016-05-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/" itemprop="url" rel="index">
-                    <span itemprop="name">Web</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="正确使用表格"><a href="#正确使用表格" class="headerlink" title="正确使用表格"></a>正确使用表格</h2><p>仅用于表格的 HTML 标签:</p>
-<ol>
-<li><code>&lt;table&gt;</code></li>
-<li><code>&lt;caption&gt;</code></li>
-<li><code>&lt;colgroup&gt;</code></li>
-<li><code>&lt;col&gt;</code></li>
-<li><code>&lt;thead&gt;</code></li>
-<li><code>&lt;tbody&gt;</code></li>
-<li><code>&lt;tr&gt;</code></li>
-<li><code>&lt;th&gt;</code></li>
-<li><code>&lt;td&gt;</code></li>
-</ol>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">caption</span> <span class="attr">align</span>=<span class="string">"bottom"</span>&gt;</span></div><div class="line">    Table 1: CosmoFarmer.com's Indoor Mower Roundup</div><div class="line">  <span class="tag">&lt;/<span class="name">caption</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">colgroup</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">col</span> <span class="attr">class</span>=<span class="string">"brand"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">col</span> <span class="attr">class</span>=<span class="string">"price"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">col</span> <span class="attr">class</span>=<span class="string">"power"</span> /&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">colgroup</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">thead</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">th</span> <span class="attr">scope</span>=<span class="string">"col"</span>&gt;</span>Brand<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">th</span> <span class="attr">scope</span>=<span class="string">"col"</span>&gt;</span>Price<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">th</span> <span class="attr">scope</span>=<span class="string">"col"</span>&gt;</span>Power Source<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>Chinook Push-o-matic Indoor Mower<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>$247.00<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>Mechanical<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>Sampson Deluxe Apartment Mower<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>$370.00<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>Mechanical<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></div></pre></td></tr></table></figure>
-<h2 id="表格样式"><a href="#表格样式" class="headerlink" title="表格样式"></a>表格样式</h2><h3 id="添加留白"><a href="#添加留白" class="headerlink" title="添加留白"></a>添加留白</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">td</span>, <span class="selector-tag">th</span> &#123; <span class="attribute">padding</span>: <span class="number">10px</span>; &#125;</div></pre></td></tr></table></figure>
-<h3 id="横向、竖向对齐"><a href="#横向、竖向对齐" class="headerlink" title="横向、竖向对齐"></a>横向、竖向对齐</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">table &#123; text-align: right; &#125;        /* text-align is an inherited property */</div><div class="line">th, td &#123; vertical-align: center; &#125;  /* vertical-align is NOT inherited */</div><div class="line">vertical-align: top | baseline | middle | bottom;</div></pre></td></tr></table></figure>
-<p><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/88880263-file_1483256298459_7936.png" alt=""><br><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/59836018-file_1483256298592_123ad.png" alt=""></p>
-<h3 id="表格边框"><a href="#表格边框" class="headerlink" title="表格边框"></a>表格边框</h3><p>对table 使用border, 只影响table最外面的border;<br>对td, th使用border, 会产生可见的cells间的空隙.</p>
-<ul>
-<li><p>单元格间的空隙</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">table</span> &#123;</div><div class="line">  <span class="attribute">border-spacing</span>: <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>消除双边框</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">table</span> &#123;</div><div class="line">  <span class="attribute">border-collapse</span>: collapse | <span class="built_in">separate</span>(D);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>圆角</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">td</span> &#123;</div><div class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid black;</div><div class="line">  <span class="comment">/* 如果设置了border-collapse, radius将被忽略. */</span></div><div class="line">  <span class="attribute">border-radius</span>: <span class="number">5px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/59732902-file_1483256298289_13903.png" alt=""></p>
-</li>
-</ul>
-<h3 id="行、列的样式"><a href="#行、列的样式" class="headerlink" title="行、列的样式"></a>行、列的样式</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.products</span> <span class="selector-tag">tr</span><span class="selector-pseudo">:nth-of-type(odd)</span> &#123;&#125;</div><div class="line"><span class="selector-class">.products</span> <span class="selector-tag">tr</span><span class="selector-pseudo">:nth-of-type(even)</span> &#123;&#125;</div></pre></td></tr></table></figure>
-<p>HTML用<code>&lt;colgroup&gt;</code>, <code>&lt;col&gt;</code> 来为列分组. 可以用它们来(类选择器)来style列.</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">&lt;col class="price"&gt;</div><div class="line">...</div><div class="line"></div><div class="line">.price &#123; width: 200px; &#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>Note: 通常浏览器会显示空cell的border和background color.<br>如果想hide它们, <code>table { empty-cells: hide; }</code><br>但 <code>border-collapse: collapse;</code> 会使其无效. </p>
-</blockquote>
-<h2 id="表单样式"><a href="#表单样式" class="headerlink" title="表单样式"></a>表单样式</h2><h3 id="HTML表单元素"><a href="#HTML表单元素" class="headerlink" title="HTML表单元素"></a>HTML表单元素</h3><ul>
-<li>Fieldset - <code>&lt;fieldset&gt;</code></li>
-<li>Legend - <code>&lt;legend&gt;</code> Fieldset 的标题</li>
-<li>Text field - <code>&lt;input type=&quot;text | password | textarea&quot;&gt;</code></li>
-<li>Button - <code>&lt;input type=&quot;submit | button&quot;&gt;</code></li>
-<li>Drop-down menu - <code>&lt;select&gt;</code></li>
-<li>Checkbox / radio - <code>&lt;input type=&quot;checkbox | radio&quot;&gt;</code></li>
-</ul>
-<h3 id="CSS布局表单"><a href="#CSS布局表单" class="headerlink" title="CSS布局表单"></a>CSS布局表单</h3><ol>
-<li>Wrap each label in a tag<br>对 <strong>radio</strong>, <code>&lt;span class=&quot;label&quot;&gt;What&#39;s your favorite color?&lt;/span&gt;</code><br>其他, <code>&lt;label&gt;Label&lt;/label&gt;&lt;input =type=&quot;text&quot; /&gt;</code> </li>
-<li><p>Set the display property to <code>inline-block</code>, and set a width</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.label</span> &#123;</div><div class="line">  <span class="attribute">display</span>: inline-block;</div><div class="line">  <span class="attribute">width</span>: <span class="number">20em</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>Adjust the style</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.label</span> &#123;</div><div class="line">  <span class="attribute">float</span>: left;</div><div class="line">  <span class="attribute">width</span>: <span class="number">20em</span>;</div><div class="line">  <span class="attribute">vertical-align</span>: top;</div><div class="line">  <span class="attribute">text-align</span>: right;</div><div class="line">  <span class="attribute">margin-right</span>: <span class="number">15px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="伪类和表单"><a href="#伪类和表单" class="headerlink" title="伪类和表单"></a>伪类和表单</h3><p><code>:focus, :ckecked, :enabled :disabled</code> </p>
-<blockquote>
-<p><a href="http://html5doctor.com/css3-pseudo-classes-and-html5-forms/" target="_blank" rel="external">http://html5doctor.com/css3-pseudo-classes-and-html5-forms/</a></p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2259,7 +2241,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2276,7 +2258,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

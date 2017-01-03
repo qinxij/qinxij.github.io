@@ -1,0 +1,718 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Web,React," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="这篇文章翻译自 Jack Callister 的 The React Quick Start Guide: ES6 Edition。
+这篇文章是原文 React 快速入门指南 的 ES6 版。Babel 是一个 Javascript 编译器，加上 React 可以让你写出现代的，可理解的，可维护的用户界面代码。只要知道这些就足以让你开始玩 React 了。跟着这个仓库 starter kit（里面">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React 快速入门指南: ES6 版（译）">
+<meta property="og:url" content="http://qinxij.me/2016/06/19/React-quick-start-guide-es6-edition/index.html">
+<meta property="og:site_name" content="秦小">
+<meta property="og:description" content="这篇文章翻译自 Jack Callister 的 The React Quick Start Guide: ES6 Edition。
+这篇文章是原文 React 快速入门指南 的 ES6 版。Babel 是一个 Javascript 编译器，加上 React 可以让你写出现代的，可理解的，可维护的用户界面代码。只要知道这些就足以让你开始玩 React 了。跟着这个仓库 starter kit（里面">
+<meta property="og:updated_time" content="2017-01-03T07:53:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React 快速入门指南: ES6 版（译）">
+<meta name="twitter:description" content="这篇文章翻译自 Jack Callister 的 The React Quick Start Guide: ES6 Edition。
+这篇文章是原文 React 快速入门指南 的 ES6 版。Babel 是一个 Javascript 编译器，加上 React 可以让你写出现代的，可理解的，可维护的用户界面代码。只要知道这些就足以让你开始玩 React 了。跟着这个仓库 starter kit（里面">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://qinxij.me/2016/06/19/React-quick-start-guide-es6-edition/"/>
+
+
+
+
+
+  <title> React 快速入门指南: ES6 版（译） | 秦小 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">秦小</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">秦小军的网络日志</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://qinxij.me/2016/06/19/React-quick-start-guide-es6-edition/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="qinxij">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="秦小">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="秦小" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                React 快速入门指南: ES6 版（译）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-19T18:11:24+08:00">
+                2016-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇文章翻译自 Jack Callister 的 <a href="http://www.jackcallister.com/2015/08/30/the-react-quick-start-guide-es6-edition.html" target="_blank" rel="external">The React Quick Start Guide: ES6 Edition</a>。</p>
+<p>这篇文章是原文 <a href="http://www.jackcallister.com/2015/01/05/the-react-quick-start-guide.html" target="_blank" rel="external">React 快速入门指南</a> 的 ES6 版。Babel 是一个 Javascript 编译器，加上 React 可以让你写出现代的，可理解的，可维护的用户界面代码。只要知道这些就足以让你开始玩 React 了。跟着这个仓库 <a href="https://github.com/jarsbe/react-starter-kit-es6" target="_blank" rel="external">starter kit</a>（里面有指导）一起编码吧，或者只是读一读也是好的。</p>
+<h2 id="概念（Concepts）"><a href="#概念（Concepts）" class="headerlink" title="概念（Concepts）"></a>概念（Concepts）</h2><p>React 只有一个极小的 API. 这使得它用起来好玩，学起来简单，理解起来容易。但是，简单并不意味着熟悉。开始之前，还有少量概念需要了解。来，一个一个看看吧。</p>
+<p><strong>React 元素 (React elments)</strong> 是表示 HTML 元素的 Javascript 对象。它们不会出现在浏览器中。它们表示浏览器中得 <code>h1</code>, <code>div</code> 或 <code>section</code> 这样的元素。</p>
+<p><strong>组件 (Components)</strong> 是开发者创建的 React 元素。它们是用户界面中较大的组成部分，组件中包含结构和功能。比如 <code>NavBar</code>, <code>LikeButton</code> 或者 <code>ImageUploader</code>。</p>
+<p><strong>JSX</strong> 是创建 React 元素和 React 组件的技术。例如 <code>&lt;h1&gt;Hello&lt;/hell&gt;</code> 就是一个 JSX 写成的 React 元素。这个 React 元素也可以写成 Javascript 的形式: <code>React.DOM.h1(null, &#39;Hello&#39;);</code>。相较而言 JSX 更好读更好写。 JSX 要先转换成 Javascript 之后才会在浏览器中运行。</p>
+<p><strong>虚拟 DOM （The Virtual DOM）</strong> 是 React 元素和组件的 Javascript 树。React 将虚拟 DOM 渲染到浏览器，从而显示用户界面。React 监听虚拟 DOM 的变化自动的改变浏览器 DOM 来同步两个 DOM。</p>
+<p>我们已经简单了解了这些概念，可以开始使用 React 了。我们创建了一系列的用户界面，每一个都在前一个的基础上添加功能。我们最终创建了一个类似 instagram 的照片流 — 作为一个例子应用程序再好不过了。</p>
+<h2 id="渲染（Rendering）"><a href="#渲染（Rendering）" class="headerlink" title="渲染（Rendering）"></a>渲染（Rendering）</h2><p>事情的第一步是渲染一个虚拟元素（一个 React 元素或组件）。要记住，因为虚拟元素只存在于 Javascript 内存中，我们必须显式地告诉 React 将它渲染到浏览器 DOM 中去。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">'http://tinyurl.com/lkevsb9'</span> /&gt;</span>, document.getElementById('app'));</span></div></pre></td></tr></table></figure>
+<p><a href="https://jsbin.com/mireve/edit?js,output" target="_blank" rel="external">见JSBin</a></p>
+<p>代码中的 <code>render</code> 方法接受两个参宿: 一个虚拟元素和一个真实的浏览器 DOM 节点 (node) 。React 将虚拟元素插入到这个 DOM 节点上。现在可以在浏览器上看到图片了。</p>
+<h2 id="组件（Components）"><a href="#组件（Components）" class="headerlink" title="组件（Components）"></a>组件（Components）</h2><p>组件是 React 的心脏和灵魂。组件是自定义的 React 元素，它们通常扩展了独特的功能和结构。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Photo</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">'http://tinyurl.com/lkevsb9'</span> /&gt;</span></span></div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">ReactDOM.render(<span class="tag">&lt;<span class="name">Photo</span> /&gt;</span>, document.getElementById('app'));</div></pre></td></tr></table></figure></p>
+<p><a href="https://jsbin.com/qanopi/4/edit?js,output" target="_blank" rel="external">见 JSBin</a></p>
+<p><code>Photo</code> 类定义为 React 组件类的子类。它有一个 <code>render</code> 返回 React 图片元素的方法。</p>
+<p>这个 <code>Photo</code> 组件一 <code>&lt;Photo /&gt;</code> 的形式使用，并且渲染成应用程序的 <code>div</code> 。</p>
+<p>这个组件没有比之前的 React 图片元素做更多的工作，但确实以自定义的功能和结构扩展了。</p>
+<h2 id="属性（Props）"><a href="#属性（Props）" class="headerlink" title="属性（Props）"></a>属性（Props）</h2><p>属性可以认为是组件的选项。它们以参数的形式传递个组件，看起来就像 HTML 的属性(attributes)一样。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Photo</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;div className='photo'&gt;</div><div class="line">        &lt;img src=&#123;this.props.src&#125; /&gt;</div><div class="line">        &lt;span&gt;&#123;this.props.caption&#125;&lt;/span&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">ReactDOM.render(&lt;Photo src='http://tinyurl.com/lkevsb9' caption='Hong Kong!' /&gt;, document.getElementById('app'));</div></pre></td></tr></table></figure></p>
+<p><a href="https://jsbin.com/meqaqi/5/edit?js,output" target="_blank" rel="external">见 JSBin</a></p>
+<p>在 React 的 <code>render</code> 方法中，传递了两个属性给 <code>Photo</code> 组件：<code>imageURL</code> 和 <code>caption</code>。</p>
+<p>在组件的 <code>render</code> 方法中，<code>imageURL</code> 属性用作 React 图片元素的 <code>src</code>, <code>caption</code> 属性用作 React span 元素的文本。</p>
+<p>如果一个组件永远不改变其属性，那么就没有意义了，组件的属性是可以改变的。 如果一个组件拥有可变的数据，就会用到状态 (state) 对象。</p>
+<h2 id="状态（State）"><a href="#状态（State）" class="headerlink" title="状态（State）"></a>状态（State）</h2><p>状态对象是组件内部的。该对象持有的数据随着时间变化。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Photo</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line"></div><div class="line">  <span class="keyword">constructor</span>(props) &#123;</div><div class="line">    <span class="keyword">super</span>(props);</div><div class="line"></div><div class="line">    <span class="keyword">this</span>.state = &#123;</div><div class="line">      <span class="attr">liked</span>: <span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  toggleLiked() &#123;</div><div class="line">    <span class="keyword">this</span>.setState(&#123;</div><div class="line">      <span class="attr">liked</span>: !<span class="keyword">this</span>.state.liked</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">const</span> buttonClass = <span class="keyword">this</span>.state.liked ? <span class="string">'active'</span> : <span class="string">''</span>;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;div className='photo'&gt;</div><div class="line">        &lt;img src=&#123;this.props.src&#125; /&gt;</div><div class="line"></div><div class="line">        &lt;div className='bar'&gt;</div><div class="line">          &lt;button onClick=&#123;(e) =&gt; &#123;this.toggleLiked(e)&#125;&#125; className=&#123;buttonClass&#125;&gt;</div><div class="line">            ♥</div><div class="line">          &lt;/button&gt;</div><div class="line">          &lt;span&gt;&#123;this.props.caption&#125;&lt;/span&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">ReactDOM.render(&lt;Photo src='http://tinyurl.com/lkevsb9' caption='Hong Kong!' /&gt;, document.getElementById('app'));</div></pre></td></tr></table></figure></p>
+<p><a href="https://jsbin.com/vuhize/3/edit?js,output" target="_blank" rel="external">见 JSBin</a></p>
+<p>拥有状态使组件引入了少量的复杂性。</p>
+<p>组件类的 <code>constructor</code> 方法在组件初始化时调用。<code>state</code> 在这个过程中设置。此例中 <code>liked</code> 被设置为 <code>false</code>。</p>
+<p><em>注意: 为了 React 准备好渲染的类，<code>super</code> 方法必须要调用（传入 <code>props</code> 参数）。</em></p>
+<p>组件还增加了一个新的方法 <code>toggleLiked</code>。这个新的方法在组件上调用 <code>setState</code> 方法来切换 <code>liked</code> 的值。</p>
+<p>组件 <code>render</code> 方法中的变量 <code>buttonClass</code> 根据 <code>liked</code> 的值被设置为 <code>active</code> 或 空值。</p>
+<p><code>buttonClass</code> 在 React 按钮元素当做类名使用。这个按钮还有一个 <code>onClick</code> 事件处理器 <code>toggleLiked</code>。<code>onClick</code> 处理器使用了 ES6 的箭头语法，这是 <code>function(e) { return this.toggleLiked(e)}</code> 的简便写法。</p>
+<p>下面列出了组件渲染到浏览器 DOM 时发生的事情:</p>
+<ul>
+<li>当组件按钮被点击是，<code>toggleLiked</code> 被调用</li>
+<li><code>liked</code> 状态改变</li>
+<li>React 重渲染组件到虚拟 DOM</li>
+<li>比较虚拟 DOM 和 之前的虚拟 DOM</li>
+<li>React 分离出改变的部分并更新到浏览器 DOM</li>
+</ul>
+<p>在此例中，React 将改变按钮上得类名。</p>
+<h2 id="组合（Composition）"><a href="#组合（Composition）" class="headerlink" title="组合（Composition）"></a>组合（Composition）</h2><p>组合就是说将较小的组件合成一个较大的组件。比如 <code>PhotoGaller</code> 组件可以在其内部使用 <code>Photo</code> 组件，想这样：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Photo</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line"></div><div class="line">  <span class="keyword">constructor</span>(props) &#123;</div><div class="line">    <span class="keyword">super</span>(props);</div><div class="line"></div><div class="line">    <span class="keyword">this</span>.state = &#123;</div><div class="line">      <span class="attr">liked</span>: <span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  toggleLiked() &#123;</div><div class="line">    <span class="keyword">this</span>.setState(&#123;</div><div class="line">      <span class="attr">liked</span>: !<span class="keyword">this</span>.state.liked</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line"></div><div class="line">    <span class="keyword">const</span> buttonClass = <span class="keyword">this</span>.state.liked ? <span class="string">'active'</span> : <span class="string">''</span>;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;div className='photo'&gt;</div><div class="line">        &lt;img src=&#123;this.props.src&#125; /&gt;</div><div class="line"></div><div class="line">        &lt;div className='bar'&gt;</div><div class="line">          &lt;button onClick=&#123;(e) =&gt; &#123;this.toggleLiked(e)&#125;&#125; className=&#123;buttonClass&#125;&gt;</div><div class="line">            ♥</div><div class="line">          &lt;/button&gt;</div><div class="line">          &lt;span&gt;&#123;this.props.caption&#125;&lt;/span&gt;</div><div class="line">        &lt;/div&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class PhotoGallery extends React.Component &#123;</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line"></div><div class="line">    const photos = this.props.photos.map((photo) =&gt; &#123;</div><div class="line">      return &lt;Photo src=&#123;photo.url&#125; caption=&#123;photo.caption&#125; /&gt;</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    return (</div><div class="line">      &lt;div className='photo-gallery'&gt;</div><div class="line">        &#123;photos&#125;</div><div class="line">      &lt;/div&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">const data = [</div><div class="line">  &#123;</div><div class="line">    url: 'http://tinyurl.com/lkevsb9',</div><div class="line">    caption: 'Hong Kong!'</div><div class="line">  &#125;,</div><div class="line">  &#123;</div><div class="line">    url: 'http://tinyurl.com/mxkwh56',</div><div class="line">    caption: 'Cows'</div><div class="line">  &#125;,</div><div class="line">  &#123;</div><div class="line">    url: 'http://tinyurl.com/nc7jv28',</div><div class="line">    caption: 'Scooters'</div><div class="line">  &#125;</div><div class="line">];</div><div class="line"></div><div class="line">ReactDOM.render(&lt;PhotoGallery photos=&#123;data&#125; /&gt;, document.getElementById('app'));</div></pre></td></tr></table></figure></p>
+<p><a href="https://jsbin.com/xujiro/3/edit?js,output" target="_blank" rel="external">见 JSBin</a></p>
+<p><code>Photo</code> 跟原来的完全一样。</p>
+<p><code>PhotoGallery</code> 组件通过 <code>prop</code> 传入假数据生成了3个 <code>Photo</code> 组件。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇文章应该足以让你能够开始使用 React 构建用户界面了。[React docs]详细说明了点点滴滴。强烈建议阅读。</p>
+<p>还有一些非常好的视频值得看看。Pete Hunt 关于 React 的演说 <a href="https://www.youtube.com/watch?v=x7cQ3mrcKaY" target="_blank" rel="external">re-thinking web application architecture</a> 和 Tom Occhino 对 <a href="https://www.youtube.com/watch?v=KVZ-P-ZI6W4" target="_blank" rel="external">React Native</a> 的介绍 - 用 React 构建的原生移动端应用 (WIP)。</p>
+<p>如果 ES6 你不熟悉，可以查看 Babel 官网的指南，在 REPL 中联系熟悉。</p>
+<p>这个指南中没有有关本地环境设置的细节，React 官方文档应该能帮到您，或者查看这个 <a href="https://github.com/jarsbe/react-babel-webpack-boilerplate" target="_blank" rel="external">boilerplate</a> 作为一个简单的解决方案。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Web/" rel="tag"># Web</a>
+          
+            <a href="/tags/React/" rel="tag"># React</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/13/CSSMM4E-P3-C13-Building-Float-Based-Layouts/" rel="next" title="CSSMM4E 笔记 - 3.13 - 构建基于浮动的布局">
+                <i class="fa fa-chevron-left"></i> CSSMM4E 笔记 - 3.13 - 构建基于浮动的布局
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/24/CSSMM4E-P3-C14-Positioning-Elements-on-a-Web-Page/" rel="prev" title="CSSMM4E 笔记 - 3.14 - 页面中元素的定位">
+                CSSMM4E 笔记 - 3.14 - 页面中元素的定位 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="qinxij" />
+          <p class="site-author-name" itemprop="name">qinxij</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念（Concepts）"><span class="nav-number">1.</span> <span class="nav-text">概念（Concepts）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#渲染（Rendering）"><span class="nav-number">2.</span> <span class="nav-text">渲染（Rendering）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件（Components）"><span class="nav-number">3.</span> <span class="nav-text">组件（Components）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性（Props）"><span class="nav-number">4.</span> <span class="nav-text">属性（Props）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#状态（State）"><span class="nav-number">5.</span> <span class="nav-text">状态（State）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组合（Composition）"><span class="nav-number">6.</span> <span class="nav-text">组合（Composition）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qinxij</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

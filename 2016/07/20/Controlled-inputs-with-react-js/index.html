@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="CSS,Web,CSSMM4E," />
+  <meta name="keywords" content="Web,React," />
 
 
 
@@ -84,27 +84,19 @@
 
 
 
-<meta name="description" content="Position 属性工作原理
-Absolute 使元素相对最近的 positioned 祖先元素定位; 否则相对viewport(broswer window)定位;   脱离 page flow.
-Relative 相对自身原本的位置定位; 不脱离 page flow, 在原本位置留下空白; 更多用于包含absolutely positioned 元素.
-Fixed  相对viewport定位">
+<meta name="description" content="最近的工作中我大量的使用了 React.js。它是一个用于用户界面开发的库。而且我发现 React.js 背后的概念使得开发用户界面变得非常简单。但是它还是有少许的缺陷。我觉得尤其坑的是 controlled input ，我被这货搞得很无语。
+比如看看下面的代码。123render: function() &amp;#123;  return ( &amp;lt;input type=&quot;text&quot; value=">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSSMM4E 笔记 - 3.14 - 页面中元素的定位">
-<meta property="og:url" content="http://qinxij.me/2016/06/24/CSSMM4E-P3-C14-Positioning-Elements-on-a-Web-Page/index.html">
+<meta property="og:title" content="React.js 中的 Controlled Input">
+<meta property="og:url" content="http://qinxij.me/2016/07/20/Controlled-inputs-with-react-js/index.html">
 <meta property="og:site_name" content="秦小">
-<meta property="og:description" content="Position 属性工作原理
-Absolute 使元素相对最近的 positioned 祖先元素定位; 否则相对viewport(broswer window)定位;   脱离 page flow.
-Relative 相对自身原本的位置定位; 不脱离 page flow, 在原本位置留下空白; 更多用于包含absolutely positioned 元素.
-Fixed  相对viewport定位">
-<meta property="og:image" content="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/97035793-file_1483255023706_854a.png">
-<meta property="og:updated_time" content="2017-01-01T07:18:20.000Z">
+<meta property="og:description" content="最近的工作中我大量的使用了 React.js。它是一个用于用户界面开发的库。而且我发现 React.js 背后的概念使得开发用户界面变得非常简单。但是它还是有少许的缺陷。我觉得尤其坑的是 controlled input ，我被这货搞得很无语。
+比如看看下面的代码。123render: function() &amp;#123;  return ( &amp;lt;input type=&quot;text&quot; value=">
+<meta property="og:updated_time" content="2017-01-03T08:42:58.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSSMM4E 笔记 - 3.14 - 页面中元素的定位">
-<meta name="twitter:description" content="Position 属性工作原理
-Absolute 使元素相对最近的 positioned 祖先元素定位; 否则相对viewport(broswer window)定位;   脱离 page flow.
-Relative 相对自身原本的位置定位; 不脱离 page flow, 在原本位置留下空白; 更多用于包含absolutely positioned 元素.
-Fixed  相对viewport定位">
-<meta name="twitter:image" content="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/97035793-file_1483255023706_854a.png">
+<meta name="twitter:title" content="React.js 中的 Controlled Input">
+<meta name="twitter:description" content="最近的工作中我大量的使用了 React.js。它是一个用于用户界面开发的库。而且我发现 React.js 背后的概念使得开发用户界面变得非常简单。但是它还是有少许的缺陷。我觉得尤其坑的是 controlled input ，我被这货搞得很无语。
+比如看看下面的代码。123render: function() &amp;#123;  return ( &amp;lt;input type=&quot;text&quot; value=">
 
 
 
@@ -132,13 +124,13 @@ Fixed  相对viewport定位">
 
 
 
-  <link rel="canonical" href="http://qinxij.me/2016/06/24/CSSMM4E-P3-C14-Positioning-Elements-on-a-Web-Page/"/>
+  <link rel="canonical" href="http://qinxij.me/2016/07/20/Controlled-inputs-with-react-js/"/>
 
 
 
 
 
-  <title> CSSMM4E 笔记 - 3.14 - 页面中元素的定位 | 秦小 </title>
+  <title> React.js 中的 Controlled Input | 秦小 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -269,7 +261,7 @@ Fixed  相对viewport定位">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://qinxij.me/2016/06/24/CSSMM4E-P3-C14-Positioning-Elements-on-a-Web-Page/">
+  <link itemprop="mainEntityOfPage" href="http://qinxij.me/2016/07/20/Controlled-inputs-with-react-js/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="qinxij">
@@ -293,7 +285,7 @@ Fixed  相对viewport定位">
             
             
               
-                CSSMM4E 笔记 - 3.14 - 页面中元素的定位
+                React.js 中的 Controlled Input
               
             
           </h1>
@@ -306,8 +298,8 @@ Fixed  相对viewport定位">
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-24T18:11:24+08:00">
-                2016-06-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-07-20T18:11:24+08:00">
+                2016-07-20
               </time>
             
 
@@ -360,28 +352,14 @@ Fixed  相对viewport定位">
       
 
       
-        <h2 id="Position-属性工作原理"><a href="#Position-属性工作原理" class="headerlink" title="Position 属性工作原理"></a>Position 属性工作原理</h2><ul>
-<li><strong>Absolute</strong> 使元素相对最近的 <em>positioned</em> 祖先元素定位; 否则相对<code>viewport</code>(broswer window)定位;   脱离 page flow.</li>
-<li><strong>Relative</strong> 相对自身原本的位置定位; 不脱离 page flow, 在原本位置留下空白; 更多用于包含absolutely positioned 元素.</li>
-<li><strong>Fixed</strong>  相对<code>viewport</code>定位; 脱离 page flow.</li>
-<li><strong>static</strong> Default.</li>
-<li>元素的层次<br><code>z-index: 3;</code> Make a element above or beneath others.</li>
-<li><p>隐藏页面部分</p>
-<ol>
-<li><code>visibility: hidden | visible;</code> 显示/隐藏元素, 不脱离流, 留空白.</li>
-<li><code>opacity: 0 .. 1;</code> 不脱离流, 留空白; 可用于动画.</li>
-<li><code>display: .. | none;</code> 脱离流, 空白被其他元素填充. </li>
-</ol>
-<p><code>display: none;</code> skip <code>visibility</code> property;<br><code>display: none;</code> 同 <code>position: abosulte; visibility: hidden;</code>效果相同.</p>
-<p>css tooltip:<br><a href="http://www.menucool.com/tooltip/css3-tooltip" target="_blank" rel="external">http://www.menucool.com/tooltip/css3-tooltip</a><br><a href="http://qtip2.com//" target="_blank" rel="external">http://qtip2.com//</a><br><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/97035793-file_1483255023706_854a.png" alt=""></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">/* 1. Create the HTML for the image and caption. */</div><div class="line"><span class="tag">&lt;<span class="name">figure</span> <span class="attr">class</span>=<span class="string">"hat"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"hat.jpg"</span> <span class="attr">width</span>=<span class="string">"100"</span> <span class="attr">height</span>=<span class="string">"100"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">figcaption</span>&gt;</span>A picture of a hat<span class="tag">&lt;/<span class="name">figcaption</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">figure</span>&gt;</span></div><div class="line"></div><div class="line">/* 2. Postion the Caption. */</div><div class="line">.hat &#123;</div><div class="line">  postion: relative;</div><div class="line">  width: 100px;</div><div class="line">  height: 100px;</div><div class="line">&#125;</div><div class="line">.hat figcaption &#123;</div><div class="line"></div><div class="line">  display: none;  /* 3. Hide the caption */</div><div class="line">  /* or</div><div class="line">   * opacity: 0;</div><div class="line">   * transition: opacity .5s ease-in; */</div><div class="line">  postion: absolute;</div><div class="line">  bottom: 0;</div><div class="line">  left: 0;</div><div class="line">  right: 0;</div><div class="line">  background-color: white;</div><div class="line">&#125;</div><div class="line">/* 4. Make the caption appear when a visitor mouses over the image. */</div><div class="line">.hat:hover figcaption &#123;</div><div class="line">  display: block;</div><div class="line">  /* or</div><div class="line">   * opacity: 1; */</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="强大的定位策略"><a href="#强大的定位策略" class="headerlink" title="强大的定位策略"></a>强大的定位策略</h2><ul>
-<li>元素内定位 - <code>relative</code> containing <code>absolute</code></li>
-<li>超出盒子 - 使用负数<code>margin</code>使元素伸出(poke out of)其容器</li>
-<li>固定 (fixed) 定位 - 固定navigation panel, search box, site logo, sidebar…</li>
-</ul>
+        <p>最近的工作中我大量的使用了 React.js。它是一个用于用户界面开发的库。而且我发现 React.js 背后的概念使得开发用户界面变得非常简单。但是它还是有少许的缺陷。我觉得尤其坑的是 controlled input ，我被这货搞得很无语。</p>
+<p>比如看看下面的代码。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> ( <span class="xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">value</span>=<span class="string">"Hello"</span> /&gt;</span> )</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>你可能会觉得如果在那个 input 里面输入字符会改变它的值。然而事实并非如此。React.js 只允许数据单向流动，视图是不能直接更新组件的状态的。那么，我们要怎样才能改变那个 input 的值呢？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">getInitialState: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">value</span>: <span class="string">"Hello"</span></div><div class="line">  &#125;</div><div class="line">&#125;,</div><div class="line"></div><div class="line"><span class="attr">handleChange</span>: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.setState(&#123;</div><div class="line">    <span class="attr">value</span>: event.target.value</div><div class="line">  &#125;);</div><div class="line">&#125;,</div><div class="line"></div><div class="line"><span class="attr">render</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> ( <span class="xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">value</span>=<span class="string">&#123;this.state.value&#125;</span> <span class="attr">onChange</span>=<span class="string">&#123;this.handleChange&#125;</span> /&gt;</span> )</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在组件里设置了一个初始状态 <code>value</code>, 初始值为字符串 <code>Hello</code>。当这个状态改变时，input 的值也跟着改变。</p>
+<p>到此为止，这个能用的 input 还只实现了一半。</p>
+<p>接下来的函数 <code>handleChange</code> 绑定到 input 的 <code>onChange</code> 事件上。<code>handleChange</code> 使用 input 中输入的值来更新组件的状态。状态更新后的组件使用新的值重新渲染。</p>
+<p>这种实现方式看起来好像有点奇葩有点随意，但是对简单的 UI 编程来说还算可用。</p>
 
       
     </div>
@@ -405,11 +383,9 @@ Fixed  相对viewport定位">
       
         <div class="post-tags">
           
-            <a href="/tags/CSS/" rel="tag"># CSS</a>
-          
             <a href="/tags/Web/" rel="tag"># Web</a>
           
-            <a href="/tags/CSSMM4E/" rel="tag"># CSSMM4E</a>
+            <a href="/tags/React/" rel="tag"># React</a>
           
         </div>
       
@@ -418,8 +394,8 @@ Fixed  相对viewport定位">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/19/React-quick-start-guide-es6-edition/" rel="next" title="React 快速入门指南: ES6 版（译）">
-                <i class="fa fa-chevron-left"></i> React 快速入门指南: ES6 版（译）
+              <a href="/2016/07/14/CSSMM4E-P3-C17-Modern-Web-Layout-with-Flexbox/" rel="next" title="CSSMM4E 笔记 - 3.17 - 使用Flexbox的现代Web布局">
+                <i class="fa fa-chevron-left"></i> CSSMM4E 笔记 - 3.17 - 使用Flexbox的现代Web布局
               </a>
             
           </div>
@@ -428,8 +404,8 @@ Fixed  相对viewport定位">
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/29/CSSMM4E-P3-C15-Responsive-Web-Design/" rel="prev" title="CSSMM4E 笔记 - 3.15 - 响应式Web 设计">
-                CSSMM4E 笔记 - 3.15 - 响应式Web 设计 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/07/22/CSSMM4E-P4-Advanced-CSS/" rel="prev" title="CSSMM4E 笔记 - 4.00 - CSS进阶">
+                CSSMM4E 笔记 - 4.00 - CSS进阶 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -477,17 +453,8 @@ Fixed  相对viewport定位">
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -540,22 +507,6 @@ Fixed  相对viewport定位">
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Position-属性工作原理"><span class="nav-number">1.</span> <span class="nav-text">Position 属性工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#强大的定位策略"><span class="nav-number">2.</span> <span class="nav-text">强大的定位策略</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
     </div>

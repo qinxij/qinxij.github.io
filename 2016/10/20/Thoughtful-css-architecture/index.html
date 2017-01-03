@@ -1,0 +1,744 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CSS,React," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本文翻译自 Nathan Rambeck 的Thoughtfull CSS Architecture。
+你是否参与一个 CSS 项目，然后这个项目随着时间慢慢的变得混乱不堪？CSS 样式对 HTML 的影响是很难跟踪的，对 CSS 的小幅改动能修复一个问题，同时也可能引进很多其他的问题，还可能需要丑陋的补丁，甚至会使 Javascript 代码失效。我想我们都遇到过这些问题。但是，只要在项目开始是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="精心设计的 CSS 架构（译）">
+<meta property="og:url" content="http://qinxij.me/2016/10/20/Thoughtful-css-architecture/index.html">
+<meta property="og:site_name" content="秦小">
+<meta property="og:description" content="本文翻译自 Nathan Rambeck 的Thoughtfull CSS Architecture。
+你是否参与一个 CSS 项目，然后这个项目随着时间慢慢的变得混乱不堪？CSS 样式对 HTML 的影响是很难跟踪的，对 CSS 的小幅改动能修复一个问题，同时也可能引进很多其他的问题，还可能需要丑陋的补丁，甚至会使 Javascript 代码失效。我想我们都遇到过这些问题。但是，只要在项目开始是">
+<meta property="og:updated_time" content="2017-01-03T13:53:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="精心设计的 CSS 架构（译）">
+<meta name="twitter:description" content="本文翻译自 Nathan Rambeck 的Thoughtfull CSS Architecture。
+你是否参与一个 CSS 项目，然后这个项目随着时间慢慢的变得混乱不堪？CSS 样式对 HTML 的影响是很难跟踪的，对 CSS 的小幅改动能修复一个问题，同时也可能引进很多其他的问题，还可能需要丑陋的补丁，甚至会使 Javascript 代码失效。我想我们都遇到过这些问题。但是，只要在项目开始是">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://qinxij.me/2016/10/20/Thoughtful-css-architecture/"/>
+
+
+
+
+
+  <title> 精心设计的 CSS 架构（译） | 秦小 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">秦小</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">秦小军的网络日志</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://qinxij.me/2016/10/20/Thoughtful-css-architecture/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="qinxij">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="秦小">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="秦小" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                精心设计的 CSS 架构（译）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-20T18:11:24+08:00">
+                2016-10-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文翻译自 Nathan Rambeck 的<a href="https://seesparkbox.com/foundry/thoughtful_css_architecture" target="_blank" rel="external">Thoughtfull CSS Architecture</a>。</p>
+<p>你是否参与一个 CSS 项目，然后这个项目随着时间慢慢的变得混乱不堪？CSS 样式对 HTML 的影响是很难跟踪的，对 CSS 的小幅改动能修复一个问题，同时也可能引进很多其他的问题，还可能需要丑陋的补丁，甚至会使 Javascript 代码失效。我想我们都遇到过这些问题。但是，只要在项目开始是就就有一个良好的设计，是可以大幅的避免这个问题的。现在我们来谈谈 CSS 的架构吧。</p>
+<h2 id="精巧架构的好处"><a href="#精巧架构的好处" class="headerlink" title="精巧架构的好处"></a>精巧架构的好处</h2><p>精巧 CSS 架构的主要好处就是可扩展性。对任何一个项目来说，不管是项目规模的增长还是团队成员的增加，都会使其可扩展性成为挑战。CSS 项目也不例外。CSS 的层叠(cascading)和全局(global)特征，使它功能强大，同时也很脆弱。不管你写 CSS 代码多久了，你都会遇到这样的情形：你看到自己只是改动了一行 CSS 代码，准备修复一个小 bug，却没想到会使项目的其它好几处都废掉了。这时你只想一头撞死在墙上😂。仔细的设计 CSS 可以为我们带来如下好处：</p>
+<ul>
+<li>更少的样式规则</li>
+<li>更少的样式冲突</li>
+<li>长期可维护性</li>
+<li>新团队成员可以快速融入</li>
+<li>团队成员更轻松地合作</li>
+<li>平滑的项目接力(handoffs)</li>
+</ul>
+<h2 id="CSS-规则的种类"><a href="#CSS-规则的种类" class="headerlink" title="CSS 规则的种类"></a>CSS 规则的种类</h2><p><a href="https://snook.ca/" target="_blank" rel="external">Jonathan Snook</a> 在他书中<a href="https://smacss.com/" target="_blank" rel="external">Scalable and Modular Architecture for CSS</a>(SMACSS) 推广了对 CSS 规则进行分组的概念。将 CSS 规则按照这些良好定义的类别进行分组，可以让我们对每个样式的目的有更好的理解。基于 SMACSS 我将 CSS 规则分组为 7 个类别，确保每个样式刚好符合这些类别中的一个。</p>
+<ul>
+<li>基本样式</li>
+<li>对象</li>
+<li>组件</li>
+<li>状态</li>
+<li>主题(Themes)</li>
+<li>实用工具(Utilities)</li>
+<li>Javascript 钩子(hooks)</li>
+</ul>
+<p>理解这些类别和它们的目标能帮助我们更好的理解我们所写的样式。</p>
+<h3 id="基本样式"><a href="#基本样式" class="headerlink" title="基本样式"></a>基本样式</h3><p>基本样式是为元素标签所写的样式。它们是整个网站全局的默认样式。通常，这些样式包括排版，盒子尺寸(box-sizing)，以及为不同浏览器表现不一的元素统一格式。一个常见的错误就是，对基本元素添加过多的样式，创建了不是真正需要的默认样式。比如，你应该不会全局地删除无序列表的项目符号吧？</p>
+<h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><p>对象是指只关注结构和布局的规则。装饰性的样式不能分组到对象类别。对象样式的概念是<a href="http://www.slideshare.net/stubbornella/object-oriented-css" target="_blank" rel="external">由 Nicole Sullivan 推广开的</a>, 目的是为了重用结构和布局的通用模式。找出你设计中的结构模式，并创界对象规则，将它们用于多个组件或者网站的各个部分。通过将这些样式放到对象类中，我们可以避免重复，减少 CSS 的大小。网格系统（不管是你自己一手撸的还是引入的框架）就是一个对象类别的例子。</p>
+<h3 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h3><p>组件是相互独立的自包含的 UI 片段。它们是原子设计的面包和黄油，并最终集成到你的样式中去。组件可大可小，可以小到只是一个按钮，也可以大到是一个轮播屏（carousel）。创建健壮的组件的关键在于，保持组件的独立性和自包含性，不能依赖页面的其它部分。这样的话，你就可以把组件扔到任何页面，它自己就能管理好它的结构和设计了。</p>
+<h3 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h3><p>状态类用于帮助更新组件的状态。比如说，折叠组件的打开和折叠，链接激活和未激活，以及元素的显示和隐藏。通常使用 Javascript 来添加这些状态类。不要用 Javascript 来直接处理样式，而是应该更新状态类，让样式表自行决定怎样渲染页面。</p>
+<h3 id="主题（Themes）"><a href="#主题（Themes）" class="headerlink" title="主题（Themes）"></a>主题（Themes）</h3><p>主题类只是简单地变更组件的颜色，字体和其他的装饰性样式。主题类也可以用来改变整个页面的外观，不仅仅用于组件。虽然不是每个项目都用到主题，但你需要时它就变得很有用。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">blockquote</span> <span class="attr">class</span>=<span class="string">"c-pullquote t-light"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>A great quote from someone special.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">blockquote</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="使用工具（Utilities）"><a href="#使用工具（Utilities）" class="headerlink" title="使用工具（Utilities）"></a>使用工具（Utilities）</h3><p>工具类是用于特定样式规则的单一目标的帮助类。它们用来调整 <code>spacing</code>, 增加字体尺寸，居中文本，清除浮动, 隐藏元素等等。工具类还可以用来小幅调整布局，如添加组件之间的间隙或者清除浮动。还能对现成的组件做小幅的修改，以避免创建一个新的组件变种。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.u-sp</span> &#123;</div><div class="line">  <span class="attribute">margin-bottom</span>: <span class="number">1em</span> <span class="meta">!important</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.u-clearfix</span><span class="selector-pseudo">:after</span> &#123;</div><div class="line">  <span class="attribute">content</span>: <span class="string">" "</span>;</div><div class="line">  <span class="attribute">display</span>: block; <span class="attribute">clear</span>: both; <span class="attribute">visibility</span>: hidden;</div><div class="line">  <span class="attribute">height</span>: <span class="number">0</span>; <span class="attribute">font-size</span>: <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.u-txt-center</span> &#123;</div><div class="line">  <span class="attribute">text-align</span>: center <span class="meta">!important</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.u-txt-larger</span> &#123;</div><div class="line">  <span class="attribute">font-size</span>: <span class="number">130%</span> <span class="meta">!important</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"promo u-sp"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"promo u-sp"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"promo"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="Javascript-钩子（hooks）"><a href="#Javascript-钩子（hooks）" class="headerlink" title="Javascript 钩子（hooks）"></a>Javascript 钩子（hooks）</h3><p>只要可能，最好分离 Javascript 与样式之间的依赖。如果一个 CSS 类名同时用于样式应用和 Javascript 选择，将可能引起问题。比如在未来重构了 CSS 样式而 Javascript 没有相应的更新。所以，Javascript 钩子需要它们专用的 CSS 类。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn--buy js-buy-now"</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h2 id="类名"><a href="#类名" class="headerlink" title="类名"></a>类名</h2><p>为类命名时，一定要保证名字长到能轻易辨别（不要用 <code>.pq</code>，要用 <code>.pullquote</code>），但也不要超过需要的长度（要 <code>.nav</code>，不要 <code>.navgation</code>）。使用可读的类名，对团队成员在现在和将来都能理解你代码所表达的逻辑非常重要。</p>
+<p>设计描述性的有意义的类名是写 CSS 是最难得问题，但是指要做好了，就会变得很有帮助。限于篇幅，这里不展开讨论怎样命名，建议看看 Ethan Muller 的这篇文章 <a href="https://seesparkbox.com/foundry/naming_css_stuff_is_really_hard" target="_blank" rel="external">Naming CSS Stuff is Really Hard, by </a> 。</p>
+<h2 id="BEM-命名约定"><a href="#BEM-命名约定" class="headerlink" title="BEM 命名约定"></a>BEM 命名约定</h2><p>BEM (Block, Element, Modifier) 是一个很著名的超好用的 CSS 组件类名命名约定，由俄罗斯最大的搜索引擎 Yandex 开发。BEM 非常简单：</p>
+<p><strong>[BLOCK]__[ELEMENT]-[MODIFIER]</strong></p>
+<p>你可能会吐槽这个命名法是不是太啰嗦了，但是这种担忧很快就会被 BEM 带来的价值所取代。下面是一个使用 BEM 的组件的例子。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"alert alert--warning"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">"alert__title"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"alert__icon"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">    Alert Title</div><div class="line">  <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"alert__description"</span>&gt;</span>The password you entered is invalid.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>BEM 有如下三个好处:</p>
+<ul>
+<li><strong>Readability</strong>: 清晰描述性的类名使 HTML 和 CSS 文件更好读。</li>
+<li><strong>Self-description</strong>: 清楚地指出了哪个元素属于哪个组件。</li>
+<li><strong>Specificity</strong>: 为每一个元素都设置一个类看起来有些过分了。但是，这样做可以保持每个选择操作的低特殊性，使得重载变得更直接。</li>
+</ul>
+<h2 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h2><p>另一个命名类的最佳实践是根据我们前面所描述的分类为类名加一个命名空间前缀。这些前缀在类名前加了几个字符，这些字符对理解这个类的使用目的是极有价值的。下面是我所用的命名空间:</p>
+<ul>
+<li>对象: <code>.o-</code></li>
+<li>组件: <code>.c-</code></li>
+<li>状态: <code>.is-</code> 或 <code>.has-</code></li>
+<li>主题: <code>.t-</code></li>
+<li>实用工具: <code>.u-</code></li>
+<li>Javascript 钩子: <code>.js-</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">footer</span> <span class="attr">class</span>=<span class="string">"c-footer"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"o-container-wide"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"c-footer__logo"</span> <span class="attr">href</span>=<span class="string">"/"</span>&gt;</span>The Assist<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"c-social c-social--follow"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"c-social__label u-txt-center"</span>&gt;</span>Join the conversation<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"c-social__list"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"c-social__item"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"c-social__item is-active"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"c-social__item"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"c-footer__credit"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>关于命名空间价值的更多信息，可以查看 Harry Roberts 的 <a href="http://csswizardry.com/2015/03/more-transparent-ui-code-with-namespaces/" target="_blank" rel="external">More Transparent UI Code With Namespaces</a>。</p>
+<h2 id="代码风格"><a href="#代码风格" class="headerlink" title="代码风格"></a>代码风格</h2><p>像其他任何代码一样，保持代码风格的一致性很重要。包括空白字符，缩进，命名约定，注释等规范。你可以找到从网上找到一些合理代码规范，比如: <a href="https://google.github.io/styleguide/htmlcssguide.xml" target="_blank" rel="external">Google</a>, <a href="http://primercss.io/guidelines/" target="_blank" rel="external">Github</a> 和 <a href="https://github.com/necolas/idiomatic-css" target="_blank" rel="external">Nicolas Gallagher</a>。你可以使用它们，也可以制定自己的规范。</p>
+<h2 id="代码组织"><a href="#代码组织" class="headerlink" title="代码组织"></a>代码组织</h2><p>为了最优化代码的组织你应该使用预处理工具（ <a href="http://sass-lang.com/" target="_blank" rel="external">Sass</a>，<a href="http://lesscss.org/" target="_blank" rel="external">Less</a>，<a href="http://stylus-lang.com/" target="_blank" rel="external">Stylus</a>）和后处理工具（<a href="http://postcss.org/" target="_blank" rel="external">PostCSS</a>）来编译代码。好处很多，包括变量，函数，mixin, import 和 嵌套 (nesting) 等特性。这些特性让你比只是用 CSS 时能写出更具良好组织的架构。</p>
+<p>使用 import, 可以将样式分解成多个意义明确的文件。<br><figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">import</span> <span class="string">"variables"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"mixins"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"normalize"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"typography"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"headings"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"headings"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"layout"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"carousel"</span>;</div></pre></td></tr></table></figure></p>
+<p>为所有使用超过一次的值创建变量。为变量名加一个前缀，让变量的目的明确，同时也可以配合编辑器的补全功能。<br><figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Colors</span></div><div class="line"><span class="variable">$c-warning</span>: Red;</div><div class="line"><span class="variable">$c-primary</span>: Blue;</div><div class="line"><span class="variable">$c-background</span>: White;</div></pre></td></tr></table></figure></p>
+<p>全局变量应该定义在专门的文件中，只用于单个组件的局部变量应定义在当前文件中。对于 Sass，变量可以定义在嵌套的样式规则里面。<br><figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.alert</span> &#123;</div><div class="line">  <span class="variable">$background-color</span>: Red;</div><div class="line">  <span class="variable">$foreground-color</span>: Cream;</div><div class="line">  <span class="attribute">background-color</span>: <span class="variable">$background-color</span>;</div><div class="line">  <span class="attribute">color</span>: <span class="variable">$foreground-color</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="源码顺序"><a href="#源码顺序" class="headerlink" title="源码顺序"></a>源码顺序</h2><p>由于 CSS 层叠的本性，样式的顺序很是重要的。如果你没有特意的安排样式导入的顺序，你会发现你总要不停的与 CSS 的层叠规则进行战斗。</p>
+<p>最近， Harry Roberts 发表了一个<a href="http://www.creativebloq.com/web-design/manage-large-scale-web-projects-new-css-architecture-itcss-41514731" target="_blank" rel="external">排序样式的明智方法/a sensible method for ordering your styles</a>，他把这个方法称作 ITCSS (Inverted Triangle CSS)。其目标是避免名字空间冲突，特异性(specificity)问题，样式泄漏(leaky styles)，和无意的回归(inadvertent regressions) (<a href="https://speakerdeck.com/dafed/managing-css-projects-with-itcss" target="_blank" rel="external">见他的 in-depth slides</a>)。其概念非常简单：将那些应用到最大范围的具有最小特殊性的设定和规则放在最前面，将那些应用到最小范围的具有最大特殊性的置于最后。这就是说，要将变量定义，标签样式规则放在开头，而工具类和 IE 补丁置于结尾。</p>
+<p>Harry 定义了 7 组样式文件类型：</p>
+<ul>
+<li><strong>settings</strong>: 变量和其他设置</li>
+<li><strong>Tools</strong>: 自定义函数和 Mixin</li>
+<li><strong>Generic</strong>: Font-face, box-sizing, normalize 等</li>
+<li><strong>Elements</strong>: 标签默认样式，如标题和链接</li>
+<li><strong>Objects</strong>: 布局和结构类</li>
+<li><strong>Components</strong>: 独立的组件</li>
+<li><strong>Trumps</strong>: 实用工具及终极王牌(Utilities and other rules meant to be a final trump over everything else)</li>
+</ul>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">import</span> <span class="string">"settings.global"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"settings.colors"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"tools.functions"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"tools.mixins"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"generic.box-sizing"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"generic.normalize"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"elements.headings"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"elements.links"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"objects.wrappers"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"objects.grid"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"components.nav"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"components.buttons"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"components.promos"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"trumps.utilities"</span>;</div><div class="line">@<span class="keyword">import</span> <span class="string">"trumps.ie8"</span>;</div></pre></td></tr></table></figure>
+<h2 id="深度挖掘"><a href="#深度挖掘" class="headerlink" title="深度挖掘"></a>深度挖掘</h2><p>这篇文章只简单介绍了正在变得越来越深入和广泛的巨大主题，算是抛砖引玉。希望能激发你的灵感，去创造更加精巧严密的 CSS 结构和设计。如果你想跟深入地了解这方面的主题，可以查看本文中引用的诸多链接，查看下面列出的此领域的领军人物的想法和资源。</p>
+<ul>
+<li><strong>Harry Roberts</strong> - 目前该领域最多产的思想领军人物之一。关注他的 <a href="https://twitter.com/csswizardry" target="_blank" rel="external">Twitter</a>，订阅这个<a href="http://csswizardry.com/" target="_blank" rel="external">博客</a>。阅读他的有关<a href="http://cssguidelin.es/" target="_blank" rel="external">CSS Guidelines</a>的文档。</li>
+<li><strong>Jonathan Snook</strong> - 在他的论文和在线书籍中推广了 CSS 架构的概念， <a href="https://smacss.com/" target="_blank" rel="external">Scalable and Modular Architecture for CSS</a>。</li>
+<li><strong>Nicole Sullivan</strong> - 引入面向对象的 CSS （Object Oriented CSS）的概念。记录在一个 <a href="https://github.com/stubbornella/oocss/wiki" target="_blank" rel="external">Github wiki</a>中。</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag"># CSS</a>
+          
+            <a href="/tags/React/" rel="tag"># React</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/29/Opinionated-guide-to-Reactjs-best-practices-and-conventions/" rel="next" title="React.js 最佳实践的非官方指南">
+                <i class="fa fa-chevron-left"></i> React.js 最佳实践的非官方指南
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="qinxij" />
+          <p class="site-author-name" itemprop="name">qinxij</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#精巧架构的好处"><span class="nav-number">1.</span> <span class="nav-text">精巧架构的好处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS-规则的种类"><span class="nav-number">2.</span> <span class="nav-text">CSS 规则的种类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本样式"><span class="nav-number">2.1.</span> <span class="nav-text">基本样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象"><span class="nav-number">2.2.</span> <span class="nav-text">对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组件"><span class="nav-number">2.3.</span> <span class="nav-text">组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态"><span class="nav-number">2.4.</span> <span class="nav-text">状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主题（Themes）"><span class="nav-number">2.5.</span> <span class="nav-text">主题（Themes）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用工具（Utilities）"><span class="nav-number">2.6.</span> <span class="nav-text">使用工具（Utilities）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Javascript-钩子（hooks）"><span class="nav-number">2.7.</span> <span class="nav-text">Javascript 钩子（hooks）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类名"><span class="nav-number">3.</span> <span class="nav-text">类名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BEM-命名约定"><span class="nav-number">4.</span> <span class="nav-text">BEM 命名约定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命名空间"><span class="nav-number">5.</span> <span class="nav-text">命名空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码风格"><span class="nav-number">6.</span> <span class="nav-text">代码风格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码组织"><span class="nav-number">7.</span> <span class="nav-text">代码组织</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码顺序"><span class="nav-number">8.</span> <span class="nav-text">源码顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深度挖掘"><span class="nav-number">9.</span> <span class="nav-text">深度挖掘</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qinxij</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
