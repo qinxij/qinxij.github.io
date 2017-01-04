@@ -361,10 +361,10 @@
 <p><strong>虚拟 DOM （The Virtual DOM）</strong> 是 React 元素和组件的 Javascript 树。React 将虚拟 DOM 渲染到浏览器，从而显示用户界面。React 监听虚拟 DOM 的变化自动的改变浏览器 DOM 来同步两个 DOM。</p>
 <p>我们已经简单了解了这些概念，可以开始使用 React 了。我们创建了一系列的用户界面，每一个都在前一个的基础上添加功能。我们最终创建了一个类似 instagram 的照片流 — 作为一个例子应用程序再好不过了。</p>
 <h2 id="渲染（Rendering）"><a href="#渲染（Rendering）" class="headerlink" title="渲染（Rendering）"></a>渲染（Rendering）</h2><p>事情的第一步是渲染一个虚拟元素（一个 React 元素或组件）。要记住，因为虚拟元素只存在于 Javascript 内存中，我们必须显式地告诉 React 将它渲染到浏览器 DOM 中去。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">'http://tinyurl.com/lkevsb9'</span> /&gt;</span>, document.getElementById('app'));</span></div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ReactDOM.render(&lt;img src='http://tinyurl.com/lkevsb9' /&gt;, document.getElementById('app'));</div></pre></td></tr></table></figure>
 <p><a href="https://jsbin.com/mireve/edit?js,output" target="_blank" rel="external">见JSBin</a></p>
 <p>代码中的 <code>render</code> 方法接受两个参宿: 一个虚拟元素和一个真实的浏览器 DOM 节点 (node) 。React 将虚拟元素插入到这个 DOM 节点上。现在可以在浏览器上看到图片了。</p>
-<h2 id="组件（Components）"><a href="#组件（Components）" class="headerlink" title="组件（Components）"></a>组件（Components）</h2><p>组件是 React 的心脏和灵魂。组件是自定义的 React 元素，它们通常扩展了独特的功能和结构。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Photo</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">'http://tinyurl.com/lkevsb9'</span> /&gt;</span></span></div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">ReactDOM.render(<span class="tag">&lt;<span class="name">Photo</span> /&gt;</span>, document.getElementById('app'));</div></pre></td></tr></table></figure></p>
+<h2 id="组件（Components）"><a href="#组件（Components）" class="headerlink" title="组件（Components）"></a>组件（Components）</h2><p>组件是 React 的心脏和灵魂。组件是自定义的 React 元素，它们通常扩展了独特的功能和结构。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Photo</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> &lt;img src='http://tinyurl.com/lkevsb9' /&gt;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">ReactDOM.render(&lt;Photo /&gt;, document.getElementById('app'));</div></pre></td></tr></table></figure></p>
 <p><a href="https://jsbin.com/qanopi/4/edit?js,output" target="_blank" rel="external">见 JSBin</a></p>
 <p><code>Photo</code> 类定义为 React 组件类的子类。它有一个 <code>render</code> 返回 React 图片元素的方法。</p>
 <p>这个 <code>Photo</code> 组件一 <code>&lt;Photo /&gt;</code> 的形式使用，并且渲染成应用程序的 <code>div</code> 。</p>
@@ -513,7 +513,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -521,7 +521,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -530,7 +530,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

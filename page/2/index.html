@@ -256,6 +256,162 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://qinxij.me/2016/06/24/CSSMM4E-P3-C14-Positioning-Elements-on-a-Web-Page/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="qinxij">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="秦小">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="秦小" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/24/CSSMM4E-P3-C14-Positioning-Elements-on-a-Web-Page/" itemprop="url">
+                  CSSMM4E 笔记 - 3.14 - 页面中元素的定位
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-06-24T18:11:24+08:00">
+                2016-06-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Position-属性工作原理"><a href="#Position-属性工作原理" class="headerlink" title="Position 属性工作原理"></a>Position 属性工作原理</h2><ul>
+<li><strong>Absolute</strong> 使元素相对最近的 <em>positioned</em> 祖先元素定位; 否则相对<code>viewport</code>(broswer window)定位;   脱离 page flow.</li>
+<li><strong>Relative</strong> 相对自身原本的位置定位; 不脱离 page flow, 在原本位置留下空白; 更多用于包含absolutely positioned 元素.</li>
+<li><strong>Fixed</strong>  相对<code>viewport</code>定位; 脱离 page flow.</li>
+<li><strong>static</strong> Default.</li>
+<li>元素的层次<br><code>z-index: 3;</code> Make a element above or beneath others.</li>
+<li><p>隐藏页面部分</p>
+<ol>
+<li><code>visibility: hidden | visible;</code> 显示/隐藏元素, 不脱离流, 留空白.</li>
+<li><code>opacity: 0 .. 1;</code> 不脱离流, 留空白; 可用于动画.</li>
+<li><code>display: .. | none;</code> 脱离流, 空白被其他元素填充. </li>
+</ol>
+<p><code>display: none;</code> skip <code>visibility</code> property;<br><code>display: none;</code> 同 <code>position: abosulte; visibility: hidden;</code>效果相同.</p>
+<p>css tooltip:<br><a href="http://www.menucool.com/tooltip/css3-tooltip" target="_blank" rel="external">http://www.menucool.com/tooltip/css3-tooltip</a><br><a href="http://qtip2.com//" target="_blank" rel="external">http://qtip2.com//</a><br><img src="http://oc0fp7t3p.bkt.clouddn.com/17-1-1/97035793-file_1483255023706_854a.png" alt=""></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">/* 1. Create the HTML for the image and caption. */</div><div class="line"><span class="tag">&lt;<span class="name">figure</span> <span class="attr">class</span>=<span class="string">"hat"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"hat.jpg"</span> <span class="attr">width</span>=<span class="string">"100"</span> <span class="attr">height</span>=<span class="string">"100"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">figcaption</span>&gt;</span>A picture of a hat<span class="tag">&lt;/<span class="name">figcaption</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">figure</span>&gt;</span></div><div class="line"></div><div class="line">/* 2. Postion the Caption. */</div><div class="line">.hat &#123;</div><div class="line">  postion: relative;</div><div class="line">  width: 100px;</div><div class="line">  height: 100px;</div><div class="line">&#125;</div><div class="line">.hat figcaption &#123;</div><div class="line"></div><div class="line">  display: none;  /* 3. Hide the caption */</div><div class="line">  /* or</div><div class="line">   * opacity: 0;</div><div class="line">   * transition: opacity .5s ease-in; */</div><div class="line">  postion: absolute;</div><div class="line">  bottom: 0;</div><div class="line">  left: 0;</div><div class="line">  right: 0;</div><div class="line">  background-color: white;</div><div class="line">&#125;</div><div class="line">/* 4. Make the caption appear when a visitor mouses over the image. */</div><div class="line">.hat:hover figcaption &#123;</div><div class="line">  display: block;</div><div class="line">  /* or</div><div class="line">   * opacity: 1; */</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="强大的定位策略"><a href="#强大的定位策略" class="headerlink" title="强大的定位策略"></a>强大的定位策略</h2><ul>
+<li>元素内定位 - <code>relative</code> containing <code>absolute</code></li>
+<li>超出盒子 - 使用负数<code>margin</code>使元素伸出(poke out of)其容器</li>
+<li>固定 (fixed) 定位 - 固定navigation panel, search box, site logo, sidebar…</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://qinxij.me/2016/06/19/React-quick-start-guide-es6-edition/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -361,10 +517,10 @@
 <p><strong>虚拟 DOM （The Virtual DOM）</strong> 是 React 元素和组件的 Javascript 树。React 将虚拟 DOM 渲染到浏览器，从而显示用户界面。React 监听虚拟 DOM 的变化自动的改变浏览器 DOM 来同步两个 DOM。</p>
 <p>我们已经简单了解了这些概念，可以开始使用 React 了。我们创建了一系列的用户界面，每一个都在前一个的基础上添加功能。我们最终创建了一个类似 instagram 的照片流 — 作为一个例子应用程序再好不过了。</p>
 <h2 id="渲染（Rendering）"><a href="#渲染（Rendering）" class="headerlink" title="渲染（Rendering）"></a>渲染（Rendering）</h2><p>事情的第一步是渲染一个虚拟元素（一个 React 元素或组件）。要记住，因为虚拟元素只存在于 Javascript 内存中，我们必须显式地告诉 React 将它渲染到浏览器 DOM 中去。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">'http://tinyurl.com/lkevsb9'</span> /&gt;</span>, document.getElementById('app'));</span></div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ReactDOM.render(&lt;img src='http://tinyurl.com/lkevsb9' /&gt;, document.getElementById('app'));</div></pre></td></tr></table></figure>
 <p><a href="https://jsbin.com/mireve/edit?js,output" target="_blank" rel="external">见JSBin</a></p>
 <p>代码中的 <code>render</code> 方法接受两个参宿: 一个虚拟元素和一个真实的浏览器 DOM 节点 (node) 。React 将虚拟元素插入到这个 DOM 节点上。现在可以在浏览器上看到图片了。</p>
-<h2 id="组件（Components）"><a href="#组件（Components）" class="headerlink" title="组件（Components）"></a>组件（Components）</h2><p>组件是 React 的心脏和灵魂。组件是自定义的 React 元素，它们通常扩展了独特的功能和结构。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Photo</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">'http://tinyurl.com/lkevsb9'</span> /&gt;</span></span></div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">ReactDOM.render(<span class="tag">&lt;<span class="name">Photo</span> /&gt;</span>, document.getElementById('app'));</div></pre></td></tr></table></figure></p>
+<h2 id="组件（Components）"><a href="#组件（Components）" class="headerlink" title="组件（Components）"></a>组件（Components）</h2><p>组件是 React 的心脏和灵魂。组件是自定义的 React 元素，它们通常扩展了独特的功能和结构。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Photo</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> &lt;img src='http://tinyurl.com/lkevsb9' /&gt;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">ReactDOM.render(&lt;Photo /&gt;, document.getElementById('app'));</div></pre></td></tr></table></figure></p>
 <p><a href="https://jsbin.com/qanopi/4/edit?js,output" target="_blank" rel="external">见 JSBin</a></p>
 <p><code>Photo</code> 类定义为 React 组件类的子类。它有一个 <code>render</code> 返回 React 图片元素的方法。</p>
 <p>这个 <code>Photo</code> 组件一 <code>&lt;Photo /&gt;</code> 的形式使用，并且渲染成应用程序的 <code>div</code> 。</p>
@@ -1931,259 +2087,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://qinxij.me/2016/04/04/CSSMM4E-P1-CSS-basics/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="qinxij">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="秦小">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="秦小" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/04/CSSMM4E-P1-CSS-basics/" itemprop="url">
-                  CSSMM4E 笔记 - 1.00 - CSS 基础
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-04-04T18:11:24+08:00">
-                2016-04-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web/" itemprop="url" rel="index">
-                    <span itemprop="name">Web</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>这是 “CSS: The Missing Manual 4E” 第一分的笔记.  这部分介绍CSS 的基础知识, 包括 1. HTML and CSS基本语法, HTML结构.</p>
-<ol>
-<li>向HTML引入CSS 的方法. 3. 重点选择器语法.  4. Style Inheritance. 5. CSS 层叠作用原理.</li>
-</ol>
-<h2 id="HTML-和-CSS"><a href="#HTML-和-CSS" class="headerlink" title="HTML 和 CSS"></a>HTML 和 CSS</h2><p>HTML 用于控制页面内容结构. 应使用更具语义的HTML5标签.</p>
-<blockquote>
-<p>html验证: 1. <a href="http://validator.w3.org/" target="_blank" rel="external">http://validator.w3.org/</a> 2. <a href="http://chrispederick.com/work/web-developer/" target="_blank" rel="external">浏览器插件</a></p>
-</blockquote>
-<ul>
-<li><strong>div</strong> - division</li>
-<li><strong>header</strong> -</li>
-<li><strong>article</strong> -</li>
-<li><strong>section</strong> - 包含一组相关的内容，比如书本的章节</li>
-<li><strong>aside</strong> - 在一些内容相关旁边(aside)放置一些相关的内容</li>
-<li><strong>footer</strong> - 包含通常放在页面底部(footer)的的信息，但不限于页面底部, 也可以是其他内容(比如article, section等)的底部</li>
-<li><strong>nav</strong> - 主要的导航链接</li>
-<li><strong>figure</strong> - 用于解释(illustrative)图片</li>
-</ul>
-<h2 id="创建样式-styles-和样式表-style-sheets"><a href="#创建样式-styles-和样式表-style-sheets" class="headerlink" title="创建样式(styles)和样式表(style sheets)"></a>创建样式(styles)和样式表(style sheets)</h2><blockquote>
-<p>CSS验证: <a href="http://jigsaw.w3.org/css-validator/" target="_blank" rel="external">http://jigsaw.w3.org/css-validator/</a></p>
-</blockquote>
-<p>内联的:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"> ... </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>外部的:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"css/style.css"</span>&gt;</span></div></pre></td></tr></table></figure>
-<h2 id="选择器-selectors-识别样式应用目标"><a href="#选择器-selectors-识别样式应用目标" class="headerlink" title="选择器(selectors): 识别样式应用目标"></a>选择器(selectors): 识别样式应用目标</h2><ul>
-<li>类型选择器: 标签</li>
-<li><p>类选择器: .classname<br>在一个标签(tag)上使用多个类，可以共享css样式</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.btn</span> &#123;&#125;</div><div class="line"><span class="selector-class">.delete</span> &#123;&#125;</div><div class="line"><span class="selector-class">.add</span> &#123;&#125;</div><div class="line"><span class="selector-class">.edit</span> &#123;&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn add"</span>&gt;</span>Add<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn delete"</span>&gt;</span>Delete<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn edit"</span>&gt;</span>Edit<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>ID选择器: 特定的文档元素 <strong><code>Note: 少用</code></strong></p>
-</li>
-<li>选择器组<ul>
-<li><code>h1, h2, h3, h4, p, .copyright {}</code></li>
-<li><code>* {}</code></li>
-</ul>
-</li>
-<li><p>对标签内的标签引用样式</p>
-<ul>
-<li>后代选择器: <code>h1 .strong {}</code></li>
-<li><p>创建模块:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"contact"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"name"</span>&gt;</span>Jonh Smith<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"phone"</span>&gt;</span>555-555-1234<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"address"</span>&gt;</span>1234 Elem St<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.contact</span> <span class="selector-class">.name</span> &#123;&#125;</div><div class="line"><span class="selector-class">.contact</span> <span class="selector-class">.phone</span> &#123;&#125;</div><div class="line"><span class="selector-class">.contact</span> <span class="selector-class">.address</span> &#123;&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>伪类(Pesudo-Class) &amp; 伪元素(Pesudo-Elements)</p>
-<ul>
-<li>链接(a)<br><code>a:link</code> regular, unused link<br><code>a:visited</code> 已访问<br><code>a:hover</code> hover<br><code>a:active</code> 已点击, 未释放</li>
-<li>段落(p)<br><code>::first-letter</code><br><code>::first-line</code></li>
-<li><code>:focus</code></li>
-<li><code>::before</code> 在前面插入文字 <code>::before { content: &quot;text to insert&quot; }</code></li>
-<li><code>::after</code></li>
-<li><code>::selection</code> refers to items that a visitor has selected on a page. 比如: 选种的文字<br><strong>Note: firefox -&gt; ::-moz-selection</strong></li>
-</ul>
-</li>
-<li>属性(Attribute)选择器<ul>
-<li><code>img[title]</code> has attribute</li>
-<li><code>input[type=&quot;text&quot;]</code> type == “text”</li>
-<li><code>a[href^=&quot;http://&quot;]</code> href starts with …</li>
-<li><code>a[href$=&quot;.pdf&quot;]</code> href ends with …</li>
-<li><code>img[src*=&quot;headshot&quot;]</code> src contains …</li>
-</ul>
-</li>
-<li><p>孩子(Child)选择器</p>
-<ul>
-<li><code>div &gt; p</code></li>
-<li><code>:first-child</code></li>
-<li><code>:last-child</code></li>
-<li><code>:only-child</code></li>
-<li><code>:nth-child(odd)</code> or <code>:nth-chlid(even)</code> or <code>:nth-child(an+b) [a=1..., b=0...]</code></li>
-<li><p><code>:first-of-type</code></p>
-<p>VS: <code>p:first-of-type</code> <strong>可以</strong> 选择下面的 <code>p</code>, 但是 <code>first-child</code> <strong>不能</strong></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>A heading<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>A paragraph.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p><code>:last-of-type</code></p>
-</li>
-<li><code>:nth-of-type(xxx)</code></li>
-</ul>
-</li>
-<li>兄弟选择器<ul>
-<li><code>h2 + p</code> 毗邻(p紧跟在h2后面)[adjacent (p immediately after h2)]</li>
-<li><code>h2 ~ p</code> all</li>
-</ul>
-</li>
-<li><code>:taget</code> 选择器 – 当 <code>window.location.href == index.html#targetX</code> 时对应的链接<code>&lt;a id=&quot;targetX&quot;&gt;</code>被选中.</li>
-<li><p><code>:not()</code> 选择器</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">p</span><span class="selector-pseudo">:not(.classy)</span> &#123;&#125;</div><div class="line"><span class="selector-tag">a</span><span class="selector-attr">[href^="http://"]</span><span class="selector-pseudo">:not(</span><span class="selector-attr">[href^="http://mysite.com"]</span>) &#123;&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="使用样式继承-Inheritance-节约时间"><a href="#使用样式继承-Inheritance-节约时间" class="headerlink" title="使用样式继承(Inheritance)节约时间"></a>使用样式继承(Inheritance)节约时间</h2><ul>
-<li>通常, 影响元素占位的properties不inherited: margin, background color, border.</li>
-<li>浏览器固有的properties不inherited: Headings are big and bold, links are blue…</li>
-</ul>
-<h2 id="多样式-层叠-Cascade-的本质"><a href="#多样式-层叠-Cascade-的本质" class="headerlink" title="多样式: 层叠(Cascade)的本质"></a>多样式: 层叠(Cascade)的本质</h2><p>层叠式CSS的基本机制，它规定了样式之间怎样相互作用，当有冲突是哪个样式有限应用.</p>
-<ul>
-<li><p>样式怎样层叠</p>
-<ul>
-<li>继承样式积累<ul>
-<li>距离最近的样式优先</li>
-<li>直接样式优先</li>
-</ul>
-</li>
-<li>Specificity: Which Style Wins<br> <strong>tag: 1 point | class: 10 points | ID: 100 points | inline: 1000 points|</strong><ul>
-<li>The Tie-Breaker: Last Style Wins</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>掌控层叠</p>
-<ul>
-<li>改变Specificity - <strong>!important 只用作 test/debug</strong></li>
-<li>选择性覆盖(Overriding)</li>
-<li>避免 Specificity 竞赛(wars) - <strong>慎用(be cautions of) ID selectors</strong></li>
-<li>以一个清爽的蓝本(Slate)开始 - <strong><a href="http://meyerweb.com/eric/tools/css/reset" target="_blank" rel="external">reset.css</a></strong></li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2229,7 +2132,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2237,7 +2140,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -2246,7 +2149,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
